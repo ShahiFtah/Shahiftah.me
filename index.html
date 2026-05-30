@@ -371,6 +371,10 @@
     .reveal-d2 { transition-delay: 0.2s; }
     .reveal-d3 { transition-delay: 0.3s; }
 
+    /* section-label får aldri opacity:0 — sikrer kontrast for WCAG/WAVE */
+    .section-label.reveal { opacity: 1; transform: translateY(30px); }
+    .section-label.reveal.visible { opacity: 1; transform: translateY(0); }
+
     /* RESPONSIVE */
     @media (max-width: 720px) {
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
