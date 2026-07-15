@@ -4,58 +4,53 @@
 
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline';">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <title>Shahi Ftah — Informatikkstudent & Developer</title>
-  
+
   <meta name="description" content="Shahi Ftah – Computer Science student at the University of Oslo specializing in programming and system architecture. Portfolio, projects and experience.">
   <meta name="keywords" content="Shahi Ftah, developer, informatikk, UiO, fullstack, Oslo">
   <meta name="author" content="Shahi Ayad Ftah">
-  
+
   <link rel="canonical" href="https://shahiftah.me">
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
   <link rel="stylesheet" href="certificates.css">
-  
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" href="/Image.png">
-  <link rel="apple-touch-icon" href="/Image.png"> 
+  <link rel="apple-touch-icon" href="/Image.png">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://shahiftah.me">
   <meta property="og:title" content="Shahi Ftah — Informatikkstudent & Developer">
   <meta property="og:description" content="Informatikkstudent ved UiO med spesialisering i Programmering og Systemarkitektur. Tilgjengelig for jobb og internship.">
   <meta property="og:image" content="https://shahiftah.me/og-image.png">
-  
-  <!-- Twitter/X -->
+
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Shahi Ftah — Informatikkstudent & Developer">
   <meta name="twitter:description" content="Informatikkstudent ved UiO med spesialisering i Programmering og Systemarkitektur.">
   <meta name="twitter:image" content="https://shahiftah.me/og-image.png">
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap"></noscript>
-  
-  <!--  
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap"></noscript>
 
-  
-  
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a08;
-      --fg: #f0ede6;
-      --accent: #c8f542;
-      --muted: #888880;   /* var: 5.55:1 — godkjent, ser nesten likt ut GAMMEL #4a4a44*/
-      --card: #111110;
-      --card2: #161614;
+      --bg: #f3ede0;
+      --bg2: #e9e1cf;
+      --fg: #1c2c46;
+      --muted: #5c6b85;
+      --accent: #a83a2a;
+      --grid: rgba(28,44,70,0.06);
+      --line: rgba(28,44,70,0.18);
+      --nav-bg: rgba(243,237,224,0.75);
     }
 
     html { scroll-behavior: smooth; }
@@ -63,48 +58,36 @@
     body {
       background: var(--bg);
       color: var(--fg);
-      font-family: 'Syne', sans-serif;
+      font-family: 'DM Mono', monospace;
       min-height: 100vh;
       overflow-x: hidden;
       cursor: none;
+      transition: background .35s ease, color .35s ease;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 32px 32px;
     }
 
-    /* FIX: Fokus-indikator for tastaturbrukere */
+    body.dark {
+      --bg: #0e2340;
+      --bg2: #123059;
+      --fg: #eaf2fb;
+      --muted: #8fa9c9;
+      --accent: #ff6b35;
+      --grid: rgba(234,242,251,0.07);
+      --line: rgba(234,242,251,0.16);
+      --nav-bg: rgba(14,35,64,0.75);
+    }
+
     a:focus-visible,
-    .btn:focus-visible {
+    .btn:focus-visible,
+    #theme-toggle:focus-visible {
       outline: 2px solid var(--accent);
       outline-offset: 3px;
-      border-radius: 4px;
+      border-radius: 2px;
     }
 
-    body.light {
-      --bg: #f5f0e8;
-      --fg: #1a1a16;
-      --card: #ede8de;
-      --muted: #6b6b60;
-      --accent: #c96a2a;
-    }
-
-    body.light nav {
-      background: rgba(245,240,232,0.7);
-      border-bottom: 1px solid rgba(180,160,130,0.3);
-    }
-
-    body.light .footer-badges svg rect { fill: var(--accent); }
-
-    body.light #bg-canvas { display: none; }
-
-    body.light #wcag-badge rect { fill: #8B4513; }
-    body.light #w3c-badge rect { fill: #8B4513; }
-    body.light #gdpr-badge rect { fill: #5a3e00; }
-    body.light #mit-badge rect { fill: #3d2b00; }
-
-    body.light .cursor { 
-      background: var(--accent); 
-      mix-blend-mode: normal; 
-    }
-    body.light .cursor-ring { border-color: rgba(201,106,42,0.35); }
-            
     .skip-link {
       position: absolute;
       left: -9999px;
@@ -112,14 +95,15 @@
       background: var(--accent);
       color: var(--bg);
       padding: 0.5rem 1rem;
-      border-radius: 4px;
+      border-radius: 2px;
       font-weight: 700;
       z-index: 9999;
     }
     .skip-link:focus { left: 1rem; }
 
+    /* CURSOR — crosshair, drafting-compass style */
     .cursor {
-      width: 10px; height: 10px;
+      width: 6px; height: 6px;
       background: var(--accent);
       border-radius: 50%;
       position: fixed; top: 0; left: 0;
@@ -127,13 +111,30 @@
       mix-blend-mode: difference;
     }
     .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1px solid rgba(200,245,66,0.35);
-      border-radius: 50%;
+      width: 30px; height: 30px;
+      border: 1px solid var(--line);
       position: fixed; top: 0; left: 0;
       pointer-events: none; z-index: 9998;
-      transition: left 0.12s ease, top 0.12s ease;
+      transform: rotate(45deg);
+      transition: left 0.12s ease, top 0.12s ease, border-color .35s;
     }
+
+    #hud {
+      position: fixed; bottom: 24px; right: 24px;
+      font-size: 11px; letter-spacing: 0.05em;
+      color: var(--accent);
+      border: 1px solid var(--line);
+      padding: 6px 10px; border-radius: 2px;
+      background: var(--bg);
+      z-index: 6; transition: background .35s, color .35s;
+    }
+
+    .cx { position: fixed; width: 16px; height: 16px; pointer-events: none; z-index: 5; }
+    .cx::before, .cx::after { content: ''; position: absolute; background: var(--muted); }
+    .cx::before { width: 16px; height: 1px; top: 7px; }
+    .cx::after  { width: 1px; height: 16px; left: 7px; }
+    .cx-tl { top: 16px; left: 16px; } .cx-tr { top: 16px; right: 16px; }
+    .cx-bl { bottom: 16px; left: 16px; } .cx-br { bottom: 16px; right: 16px; }
 
     .container { max-width: 940px; margin: 0 auto; padding: 0 2rem; }
 
@@ -143,18 +144,20 @@
       z-index: 100;
       padding: 1.2rem 2rem;
       display: flex; justify-content: space-between; align-items: center;
-      background: rgba(10,10,8,0.7);
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(74,74,68,0.3);
+      border-bottom: 1px solid var(--line);
+      transition: background .35s, border-color .35s;
     }
     .nav-logo {
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-size: 1.2rem;
-      color: var(--accent);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--fg);
       text-decoration: none;
     }
-    .nav-links { display: flex; gap: 2rem; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
     .nav-links a {
       font-size: 0.75rem;
       letter-spacing: 0.15em;
@@ -163,7 +166,13 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--fg); }
+    .nav-links a:hover { color: var(--accent); }
+    #theme-toggle {
+      background: none; border: 1px solid var(--line); color: var(--fg);
+      font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em;
+      padding: 0.4rem 0.7rem; cursor: none; transition: .25s;
+    }
+    #theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
 
     /* HERO */
     header {
@@ -174,33 +183,43 @@
     .hero-inner { width: 100%; }
 
     .tag {
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      display: inline-flex; align-items: center; gap: 0.6rem;
       font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--accent); border: 1px solid var(--accent);
-      padding: 0.25rem 0.75rem; border-radius: 999px;
-      margin-bottom: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
       opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
     }
-    .tag-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .tag::before { content: ''; width: 8px; height: 8px; border: 1px solid var(--accent); }
 
     .hero-name {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(4rem, 12vw, 9rem);
-      line-height: 0.9; letter-spacing: -0.02em;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(3.4rem, 10vw, 7.5rem);
+      line-height: 0.95; letter-spacing: -0.01em;
       opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
     }
-    .hero-name em { font-style: italic; color: var(--accent); }
+    .hero-name em { font-style: normal; color: var(--accent); }
+
+    .hero-dim {
+      position: relative; margin-top: 1.4rem; padding-top: 1.4rem; max-width: 340px;
+      opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+    }
+    .hero-dim::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--line); }
+    .hero-dim span {
+      position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+      background: var(--bg); padding: 0 8px; font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 0.1em; white-space: nowrap; transition: background .35s;
+    }
 
     .hero-sub {
-      margin-top: 1.5rem;
-      font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+      margin-top: 1.2rem;
+      font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
       color: var(--muted);
-      opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+      opacity: 0; animation: fadeUp 0.9s 0.55s forwards;
     }
 
     .hero-desc {
-      margin-top: 2rem; font-size: 1.05rem;
+      margin-top: 1.8rem; font-size: 1rem;
       color: var(--muted); max-width: 460px; line-height: 1.75;
       opacity: 0; animation: fadeUp 0.9s 0.6s forwards;
     }
@@ -209,9 +228,8 @@
       display: flex; gap: 3rem; margin-top: 3rem; flex-wrap: wrap;
       opacity: 0; animation: fadeUp 0.9s 0.7s forwards;
     }
-    .stat-item {}
-    .stat-num { font-family: 'Instrument Serif', serif; font-size: 2.5rem; color: var(--fg); line-height: 1; }
-    .stat-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+    .stat-num { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.3rem; color: var(--fg); line-height: 1; }
+    .stat-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
 
     .hero-links {
       display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap;
@@ -221,20 +239,20 @@
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      font-family: 'Syne', sans-serif; font-size: 0.85rem;
-      font-weight: 700; letter-spacing: 0.05em;
-      text-decoration: none; border-radius: 999px;
-      transition: all 0.3s ease;
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.02em;
+      text-decoration: none; border-radius: 2px;
+      border: 1px solid var(--line); color: var(--fg);
+      transition: all 0.25s ease;
     }
-    .btn-primary { background: var(--accent); color: var(--bg); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(200,245,66,0.4); }
-    .btn-ghost { border: 1px solid var(--muted); color: var(--fg); }
+    .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 700; }
+    .btn-primary:hover { filter: brightness(1.08); transform: translateY(-2px); }
     .btn-ghost:hover { border-color: var(--fg); transform: translateY(-2px); }
 
     .hero-number {
       position: absolute; right: -1rem; top: 50%; transform: translateY(-50%);
-      font-family: 'Instrument Serif', serif; font-size: 18vw;
-      color: transparent; -webkit-text-stroke: 1px rgba(200,245,66,0.05);
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17vw;
+      color: transparent; -webkit-text-stroke: 1px var(--line);
       line-height: 1; pointer-events: none; user-select: none;
     }
 
@@ -243,7 +261,7 @@
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
       opacity: 0; animation: fadeUp 1s 1.2s forwards;
     }
-    .scroll-hint span { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .scroll-hint span { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
     .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--muted), transparent); animation: scrollAnim 1.5s infinite; }
     @keyframes scrollAnim {
       0%   { transform: scaleY(0); transform-origin: top; }
@@ -254,111 +272,105 @@
 
     /* SECTIONS */
     section { padding: 6rem 0; }
-    .divider { height: 1px; background: rgba(74,74,68,0.4); }
+    .divider-line { height: 1px; background: var(--line); }
 
     .section-label {
-      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 3rem;
       display: flex; align-items: center; gap: 1rem;
+      font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 3rem;
     }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--muted); max-width: 80px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line), transparent); }
 
     /* ABOUT */
     .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: start; }
-    .about-text { font-family: 'Instrument Serif', serif; font-size: 1.55rem; line-height: 1.55; }
-    .about-text em { color: var(--accent); font-style: italic; }
+    .about-text { font-family: 'Space Grotesk', sans-serif; font-weight: 400; font-size: 1.4rem; line-height: 1.55; }
+    .about-text em { color: var(--accent); font-style: normal; font-weight: 500; }
     .about-text p + p { margin-top: 1.2rem; }
 
-    .about-details { display: flex; flex-direction: column; gap: 0; }
-    .detail-item { border-top: 1px solid rgba(74,74,68,0.5); padding: 1rem 0; }
-    .detail-item:last-child { border-bottom: 1px solid rgba(74,74,68,0.5); }
-    .detail-item .label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
-    .detail-item .value { font-size: 0.9rem; color: var(--fg); line-height: 1.5; }
+    .specs { border: 1px solid var(--line); }
+    .spec-row { display: grid; grid-template-columns: 130px 1fr; border-top: 1px solid var(--line); font-size: 0.85rem; }
+    .spec-row:first-child { border-top: none; }
+    .spec-row .k {
+      padding: 0.9rem 1rem; color: var(--accent); letter-spacing: 0.12em;
+      border-right: 1px solid var(--line); font-size: 0.66rem; text-transform: uppercase;
+    }
+    .spec-row .v { padding: 0.9rem 1rem; color: var(--fg); line-height: 1.55; }
 
     /* SKILLS */
     .skills-section { margin-top: 5rem; }
+    .skill-cat-title { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
     .skills-categories { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
-    .skill-category {}
-    .skill-cat-title { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
     .skills-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .skill-pill {
-      padding: 0.3rem 0.8rem; border: 1px solid rgba(74,74,68,0.6);
-      border-radius: 999px; font-size: 0.78rem; color: var(--fg);
-      transition: all 0.25s;
+      padding: 0.3rem 0.75rem; border: 1px solid var(--line);
+      font-size: 0.76rem; color: var(--fg); letter-spacing: 0.02em;
+      transition: all 0.2s;
     }
     .skill-pill:hover { border-color: var(--accent); color: var(--accent); }
 
     /* LANGUAGES */
-    .lang-grid { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .lang-grid { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.5rem; }
     .lang-item {
       display: flex; align-items: center; gap: 0.6rem;
       padding: 0.5rem 1rem;
-      background: var(--card); border: 1px solid rgba(74,74,68,0.4);
-      border-radius: 8px; font-size: 0.82rem;
+      border: 1px solid var(--line); font-size: 0.8rem;
     }
-    .lang-level { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .lang-level { font-size: 0.68rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
 
-    /* EXPERIENCE */
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-    .timeline-item {
-      display: grid; grid-template-columns: 200px 1fr;
-      gap: 3rem; padding: 2.5rem 0;
-      border-top: 1px solid rgba(74,74,68,0.4);
-      transition: background 0.2s;
-    }
-    .timeline-item:last-child { border-bottom: 1px solid rgba(74,74,68,0.4); }
-    .timeline-meta {}
-    .timeline-period { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; line-height: 1.5; }
-    .timeline-location { font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
-    .timeline-content {}
-    .timeline-role { font-family: 'Instrument Serif', serif; font-size: 1.3rem; margin-bottom: 0.2rem; }
-    .timeline-company { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
-    .timeline-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
-    .timeline-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.8rem; }
-    .timeline-tag {
-      font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.15rem 0.55rem;
-      background: rgba(200,245,66,0.07); color: var(--accent); border-radius: 4px;
-    }
+    /* CERTIFICATES TICKER */
+    .log-meta { display: flex; align-items: center; gap: 0.6rem; font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--muted); margin-top: -2rem; margin-bottom: 2.5rem; }
+    .log-caret { width: 6px; height: 12px; background: var(--accent); animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .ticker-outer { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1.4rem 0; }
+    .ticker-track { display: flex; gap: 2.4rem; width: max-content; animation: tickerScroll 42s linear infinite; }
+    .ticker-outer:hover .ticker-track { animation-play-state: paused; }
+    @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item { display: flex; align-items: baseline; gap: 0.6rem; white-space: nowrap; }
+    .log-id { font-size: 0.68rem; color: var(--accent); letter-spacing: 0.05em; }
+    .log-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; color: var(--fg); }
+    .log-dots { width: 32px; border-bottom: 1px dotted var(--line); margin-bottom: 0.3em; }
+    .log-issuer { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.04em; }
+    .log-status { color: var(--accent); font-size: 0.75rem; }
 
     /* PROJECTS */
-    .projects-grid { display: grid; gap: 1px; background: rgba(74,74,68,0.4); border: 1px solid rgba(74,74,68,0.4); }
+    .projects-grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
     .project-card {
-      background: var(--bg); padding: 2.5rem;
+      background: var(--bg); padding: 2.2rem;
       display: flex; justify-content: space-between; align-items: center;
-      gap: 2rem; transition: background 0.3s;
+      gap: 2rem; transition: background 0.25s;
       text-decoration: none; color: inherit;
     }
-    .project-card:hover { background: var(--card); }
+    .project-card:hover { background: var(--bg2); }
     .project-card:hover .project-arrow { transform: translate(4px, -4px); color: var(--accent); }
-    .project-num { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 0.5rem; }
-    .project-title { font-family: 'Instrument Serif', serif; font-size: 1.5rem; margin-bottom: 0.4rem; }
-    .project-desc { font-size: 0.85rem; color: var(--muted); max-width: 420px; line-height: 1.65; }
+    .project-num { font-size: 0.72rem; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.5rem; }
+    .project-title { font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 1.4rem; margin-bottom: 0.4rem; }
+    .project-desc { font-size: 0.83rem; color: var(--muted); max-width: 420px; line-height: 1.6; }
     .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.8rem; }
     .project-tag {
-      font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.15rem 0.55rem;
-      background: rgba(200,245,66,0.07); color: var(--accent); border-radius: 4px;
+      font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.15rem 0.55rem; border: 1px solid var(--line); color: var(--accent);
     }
-    .project-arrow { font-size: 1.5rem; color: var(--muted); transition: all 0.3s; flex-shrink: 0; }
+    .project-arrow { font-size: 1.4rem; color: var(--muted); transition: all 0.25s; flex-shrink: 0; }
 
     /* CONTACT */
     .contact-inner { text-align: center; }
-    .contact-heading { font-family: 'Instrument Serif', serif; font-size: clamp(3rem, 8vw, 6rem); line-height: 1; margin-bottom: 1.5rem; }
-    .contact-heading em { color: var(--accent); font-style: italic; }
-    .contact-sub { color: var(--muted); font-size: 1rem; margin-bottom: 3rem; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .contact-heading { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(2.6rem, 7vw, 5.2rem); line-height: 1; margin-bottom: 1.5rem; }
+    .contact-heading em { color: var(--accent); font-style: normal; }
+    .contact-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 3rem; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.7; }
     .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-    /* FOOTER */ 
+    /* FOOTER */
     footer {
-      border-top: 1px solid rgba(74,74,68,0.4);
+      border-top: 1px solid var(--line);
       padding: 2rem 0;
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.75rem; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+      font-size: 0.72rem; color: var(--muted);
     }
     .footer-links { display: flex; gap: 1.5rem; }
     .footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--fg); }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-badges { display: flex; gap: 0.5rem; align-items: center; }
 
     /* ANIMATIONS */
     @keyframes fadeUp {
@@ -371,46 +383,43 @@
     .reveal-d2 { transition-delay: 0.2s; }
     .reveal-d3 { transition-delay: 0.3s; }
 
-    /* section-label får aldri opacity:0 — sikrer kontrast for WCAG/WAVE */
     .section-label.reveal { opacity: 1; transform: translateY(30px); }
     .section-label.reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
 
     /* RESPONSIVE */
     @media (max-width: 720px) {
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .skills-categories { grid-template-columns: 1fr 1fr; }
-      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
-      .timeline-meta { display: flex; gap: 1rem; align-items: baseline; }
       .project-card { flex-direction: column; align-items: flex-start; }
       .hero-number { display: none; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
-      /*
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }*/
-      
-      nav { padding: 1rem 1.2rem; } /*NEW*/
+      footer { flex-direction: column; text-align: center; }
+      nav { padding: 1rem 1.2rem; }
       .nav-links { gap: 0; flex-wrap: wrap; justify-content: flex-end; row-gap: 0.4rem; column-gap: 1rem; }
       .nav-links a { font-size: 0.68rem; }
-      #theme-toggle { font-size: 0.9rem !important; }
+      .cx, #hud { display: none; }
     }
 
-    @media (max-width: 400px) { /*NEW*/
+    @media (max-width: 400px) {
       .nav-logo { font-size: 1rem; }
       .nav-links { column-gap: 0.7rem; }
       .nav-links a { font-size: 0.62rem; }
     }
-        
+
     @media (max-width: 480px) {
       .skills-categories { grid-template-columns: 1fr; }
       .hero-stats { gap: 2rem; }
     }
 
-    /* Touch-enheter: skjul custom cursor */
     @media (hover: none) {
       body { cursor: auto; }
-      .cursor, .cursor-ring { display: none; }
+      .cursor, .cursor-ring, #hud, .cx { display: none; }
     }
-    
+
   </style>
 </head>
 <body>
@@ -419,26 +428,30 @@
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
+<div id="hud">X 000 · Y 000</div>
+<div class="cx cx-tl"></div><div class="cx cx-tr"></div>
+<div class="cx cx-bl"></div><div class="cx cx-br"></div>
 
 <!-- NAV -->
 <nav aria-label="Hovednavigasjon">
-  <a href="#" class="nav-logo">SF.</a>
+  <a href="#" class="nav-logo">SF<span>.</span></a>
   <div class="nav-links">
     <a href="#about">Om</a>
     <a href="#certificates">Sertifikater</a>
     <a href="#projects">Prosjekter</a>
     <a href="#contact">Kontakt</a>
-    <button id="theme-toggle" aria-label="Bytt tema" style="background:none;border:none;cursor:none;color:var(--muted);font-size:1.1rem;">☀️</button>
+    <button id="theme-toggle" aria-label="Bytt tema">MØRK</button>
   </div>
 </nav>
 
 <!-- HERO -->
 <header>
   <div class="container hero-inner">
-   <!-- <span class="tag"><span class="tag-dot" aria-hidden="true"></span>Tilgjengelig for jobber & prosjekter</span> -->
+    <span class="tag">Tilgjengelig for jobber & prosjekter</span>
     <h1 class="hero-name">Shahi<br><em>Ftah.</em></h1>
+    <div class="hero-dim"><span>↔ SYSTEMARKITEKTUR</span></div>
     <p class="hero-sub">Informatikk PROSA — UiO · Fullstack & Cloud · Oslo</p>
-    <p class="hero-desc">Informatikkstudent med spesialisering i Programmering og Systemarkitektur. Jeg kombinerer akademisk dyktighet innen algoritmer og systemer med praktisk erfaring fra undervisning og teamarbeid.</p>
+    <p class="hero-desc">Sisteårsstudent i informatikk ved UiO. Jeg bygger systemer som faktisk fungerer — fra AI til mikrotjenester.</p>
     <div class="hero-stats">
       <div class="stat-item">
         <div class="stat-num">3+</div>
@@ -468,44 +481,43 @@
 </header>
 
 <main id="main-content">
-<div class="divider"></div>
+<div class="divider-line"></div>
 
 <!-- ABOUT -->
 <section id="about" aria-labelledby="heading-about">
   <div class="container">
     <h2 id="heading-about" class="section-label reveal">Om meg</h2>
-    
+
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>Informatikkstudent med spesialisering i <em>Programmering og Systemarkitektur</em> ved UiO.</p>
-        <p>Jeg er lidenskapelig opptatt av å bygge systemer som faktisk <em>løser problemer</em> — fra fingerdeteksjon med Computer Vision til event-drevne mikrotjenester.</p>
+        <p>Jeg liker å bygge ting som løser <em>ekte problemer</em> — fra fingerdeteksjon med Computer Vision til event-drevne mikrotjenester.</p>
         <p>Ved siden av studiene har jeg i tre år veiledet medstudenter som <em>Gruppelærer</em> i IN1020.</p>
       </div>
-      <div class="about-details reveal reveal-d1">
-        <div class="detail-item">
-          <div class="label">Utdanning</div>
-          <div class="value">Bachelor Informatikk (PROSA)<br>Universitetet i Oslo, 2022–2025</div>
+      <div class="specs reveal reveal-d1">
+        <div class="spec-row">
+          <div class="k">Utdanning</div>
+          <div class="v">Bachelor Informatikk (PROSA)<br>Universitetet i Oslo, 2022–2025</div>
         </div>
-        <div class="detail-item">
-          <div class="label">Fag</div>
-          <div class="value">Algoritmer, Databaser, Systemarkitektur, Avansert Programmering</div>
+        <div class="spec-row">
+          <div class="k">Fag</div>
+          <div class="v">Algoritmer, Databaser, Systemarkitektur, Avansert Programmering</div>
         </div>
-        <div class="detail-item">
-          <div class="label">Videregående</div>
-          <div class="value">Mysen VGS — Realfag, 2019–2022</div>
+        <div class="spec-row">
+          <div class="k">Videregående</div>
+          <div class="v">Mysen VGS — Realfag, 2019–2022</div>
         </div>
-        <div class="detail-item">
-          <div class="label">Status</div>
-          <div class="value" style="color:var(--accent)">● Tilgjengelig</div>
+        <div class="spec-row">
+          <div class="k">Status</div>
+          <div class="v" style="color:var(--accent)">● Tilgjengelig</div>
         </div>
       </div>
     </div>
 
     <!-- SKILLS -->
     <div class="skills-section reveal">
-      
+
       <h2 class="section-label" style="margin-bottom:2rem;">Ferdigheter</h2>
-      
+
       <div class="skills-categories">
         <div class="skill-category">
           <div class="skill-cat-title">Programmering</div>
@@ -561,56 +573,55 @@
   </div>
 </section>
 
-
-<div class="divider"></div>
+<div class="divider-line"></div>
 
 <section id="certificates" aria-labelledby="heading-certificates">
   <div class="container">
     <h2 id="heading-certificates" class="section-label reveal">Sertifikater &amp; kurs</h2>
+    <div class="log-meta reveal"><span class="log-caret" aria-hidden="true"></span>10 OPPFØRINGER LOGGFØRT</div>
   </div>
 
   <div class="ticker-outer reveal">
     <div class="ticker-track" aria-label="Sertifikater og kurs" role="list">
 
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Elements of AI</div><div class="ticker-issuer">University of Helsinki · NTNU</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Blå sone</div><div class="ticker-issuer">Telenor</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Introduction to DHIS2</div><div class="ticker-issuer">DHIS2 · UiO</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Agile Explorer</div><div class="ticker-issuer">IBM SkillsBuild</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Artificial Intelligence Fundamentals</div><div class="ticker-issuer">IBM SkillsBuild</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Working in a Digital World</div><div class="ticker-issuer">IBM SkillsBuild</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Fundamentals of Digital Marketing</div><div class="ticker-issuer">Google Digital Garage</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Google Analytics for Beginners</div><div class="ticker-issuer">Google Analytics Academy</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Getting Started With Google Analytics 360</div><div class="ticker-issuer">Google Analytics Academy</div></div></div>
-      <div class="ticker-item" role="listitem"><div class="ticker-dot" aria-hidden="true"></div><div><div class="ticker-name">Grunnprinsipper for IKT-sikkerhet</div><div class="ticker-issuer">NSM</div></div></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·01</span><span class="log-name">Elements of AI</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">University of Helsinki · NTNU</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·02</span><span class="log-name">Blå sone</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">Telenor</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·03</span><span class="log-name">Introduction to DHIS2</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">DHIS2 · UiO</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·04</span><span class="log-name">Agile Explorer</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">IBM SkillsBuild</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·05</span><span class="log-name">Artificial Intelligence Fundamentals</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">IBM SkillsBuild</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·06</span><span class="log-name">Working in a Digital World</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">IBM SkillsBuild</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·07</span><span class="log-name">Fundamentals of Digital Marketing</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">Google Digital Garage</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·08</span><span class="log-name">Google Analytics for Beginners</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">Google Analytics Academy</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·09</span><span class="log-name">Getting Started With Google Analytics 360</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">Google Analytics Academy</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" role="listitem"><span class="log-id">CERT·10</span><span class="log-name">Grunnprinsipper for IKT-sikkerhet</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">NSM</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
 
-      <!-- Duplikat for sømløs loop -->
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Elements of AI</div><div class="ticker-issuer">University of Helsinki · NTNU</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Blå sone</div><div class="ticker-issuer">Telenor</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Introduction to DHIS2</div><div class="ticker-issuer">DHIS2 · UiO</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Agile Explorer</div><div class="ticker-issuer">IBM SkillsBuild</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Artificial Intelligence Fundamentals</div><div class="ticker-issuer">IBM SkillsBuild</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Working in a Digital World</div><div class="ticker-issuer">IBM SkillsBuild</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Fundamentals of Digital Marketing</div><div class="ticker-issuer">Google Digital Garage</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Google Analytics for Beginners</div><div class="ticker-issuer">Google Analytics Academy</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Getting Started With Google Analytics 360</div><div class="ticker-issuer">Google Analytics Academy</div></div></div>
-      <div class="ticker-item" aria-hidden="true"><div class="ticker-dot"></div><div><div class="ticker-name">Grunnprinsipper for IKT-sikkerhet</div><div class="ticker-issuer">NSM</div></div></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·01</span><span class="log-name">Elements of AI</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">University of Helsinki · NTNU</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·02</span><span class="log-name">Blå sone</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">Telenor</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·03</span><span class="log-name">Introduction to DHIS2</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">DHIS2 · UiO</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·04</span><span class="log-name">Agile Explorer</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">IBM SkillsBuild</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·05</span><span class="log-name">Artificial Intelligence Fundamentals</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">IBM SkillsBuild</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·06</span><span class="log-name">Working in a Digital World</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">IBM SkillsBuild</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·07</span><span class="log-name">Fundamentals of Digital Marketing</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">Google Digital Garage</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·08</span><span class="log-name">Google Analytics for Beginners</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">Google Analytics Academy</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·09</span><span class="log-name">Getting Started With Google Analytics 360</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">Google Analytics Academy</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
+      <div class="ticker-item" aria-hidden="true"><span class="log-id">CERT·10</span><span class="log-name">Grunnprinsipper for IKT-sikkerhet</span><span class="log-dots" aria-hidden="true"></span><span class="log-issuer">NSM</span><span class="log-status" aria-hidden="true">&#10003;</span></div>
 
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider-line"></div>
 
 <!-- PROJECTS -->
 <section id="projects" aria-labelledby="heading-projects">
   <div class="container">
-    <h2  id="heading-projects" class="section-label reveal">Prosjekter</h2>
-    
+    <h2 id="heading-projects" class="section-label reveal">Prosjekter</h2>
+
     <div class="projects-grid reveal">
 
       <a href="https://github.com/ShahiFtah/LLM---CHATBOT" target="_blank" class="project-card">
         <div class="project-info">
-          <div class="project-num">01</div>
+          <div class="project-num">PRJ · 01</div>
           <div class="project-title">LLM Chatbot</div>
           <div class="project-desc">Personlig AI-chatbot med OpenRouter sitt gratis API. Kjører i nettleseren uten backend-kostnad.</div>
           <div class="project-tags">
@@ -622,7 +633,7 @@
 
       <a href="https://github.com/ShahiFtah/finger-detection-projects" target="_blank" class="project-card">
         <div class="project-info">
-          <div class="project-num">02</div>
+          <div class="project-num">PRJ · 02</div>
           <div class="project-title">Fingerdeteksjon</div>
           <div class="project-desc">Sanntids fingerdeteksjon med MediaPipe og OpenCV. Dots, håndkontroller og visualisering live.</div>
           <div class="project-tags">
@@ -634,7 +645,7 @@
 
       <a href="https://github.com/ShahiFtah/Sunify_SolcelleApp" target="_blank" class="project-card">
         <div class="project-info">
-          <div class="project-num">03</div>
+          <div class="project-num">PRJ · 03</div>
           <div class="project-title">Sunify — Solcelleapp</div>
           <div class="project-desc">Android-app for solcelleenergiovervåking og optimalisering, bygget i Kotlin.</div>
           <div class="project-tags">
@@ -646,7 +657,7 @@
 
       <a href="https://github.com/ShahiFtah/UDP-Directory-Service-Client" target="_blank" class="project-card">
         <div class="project-info">
-          <div class="project-num">04</div>
+          <div class="project-num">PRJ · 04</div>
           <div class="project-title">UDP Directory Service</div>
           <div class="project-desc">UDP-basert katalogservice med klient–server-kommunikasjon, ACK-mekanisme og trestruktur.</div>
           <div class="project-tags">
@@ -658,7 +669,7 @@
 
       <a href="https://github.com/ShahiFtah/Labyrint" target="_blank" class="project-card">
         <div class="project-info">
-          <div class="project-num">05</div>
+          <div class="project-num">PRJ · 05</div>
           <div class="project-title">Labyrint-løser</div>
           <div class="project-desc">Rekursivt program som finner alle utganger i en labyrint — sykliske og asykliske med polymorfisme.</div>
           <div class="project-tags">
@@ -670,7 +681,7 @@
 
       <a href="https://github.com/ShahiFtah/Blue-Zone-participant---Event-Driven-Microservices-Workshop" target="_blank" class="project-card">
         <div class="project-info">
-          <div class="project-num">06</div>
+          <div class="project-num">PRJ · 06</div>
           <div class="project-title">Event-Driven Microservices</div>
           <div class="project-desc">Event-drevet mikrotjenestarkitektur med TypeScript og meldingskøer. Workshop-prosjekt.</div>
           <div class="project-tags">
@@ -682,7 +693,7 @@
 
       <a href="https://github.com/ShahiFtah/MyOwnFlappyBird" target="_blank" class="project-card">
         <div class="project-info">
-          <div class="project-num">07</div>
+          <div class="project-num">PRJ · 07</div>
           <div class="project-title">Flappy Bird</div>
           <div class="project-desc">Egenlaget Flappy Bird med TypeScript. Game-loop, kollisjonsdeteksjon og poengsystem.</div>
           <div class="project-tags">
@@ -692,16 +703,16 @@
         <span class="project-arrow">↗</span>
       </a>
 
-      <a href="https://github.com/ShahiFtah" target="_blank" class="project-card" style="justify-content:center; text-align:center; flex-direction:column; gap:0.5rem; border-top: 1px solid rgba(74,74,68,0.4);">
+      <a href="https://github.com/ShahiFtah" target="_blank" class="project-card" style="justify-content:center; text-align:center; flex-direction:column; gap:0.5rem; border-top: 1px solid var(--line);">
         <div style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);">Og mer</div>
-        <div style="font-family:'Instrument Serif',serif; font-size:1.3rem;">Se alle prosjekter →</div>
+        <div style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:1.25rem;">Se alle prosjekter →</div>
       </a>
 
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<div class="divider-line"></div>
 
 <!-- CONTACT -->
 <section id="contact" aria-labelledby="heading-contact">
@@ -728,67 +739,65 @@
     <span>Oslo, Norge</span>
     <span>Testet med <a href="https://wave.webaim.org/report#/shahiftah.me" target="_blank" rel="noopener noreferrer" aria-label="WAVE tilgjengelighetsrapport (åpnes i ny fane)" style="color: var(--muted); text-decoration: underline;">WAVE</a> · AIM Score 10/10</span>
 
-    <!-- WCAG 2.2 -->
-<a href="https://www.w3.org/WAI/WCAG2AA-Conformance" target="_blank" rel="noopener noreferrer" aria-label="WCAG 2.2 Level AA">
-  <svg id="wcag-badge" width="66" height="24" viewBox="0 0 66 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WCAG 2.2 Level AA">
-    <rect width="66" height="24" rx="3" fill="#005A9C"/>
-    <text x="33" y="9" fill="white" font-size="6" font-family="sans-serif" text-anchor="middle" font-weight="bold">WCAG 2.2</text>
-    <text x="33" y="19" fill="white" font-size="7" font-family="sans-serif" text-anchor="middle" font-weight="bold">Level AA</text>
-  </svg>
-</a>
+    <div class="footer-badges">
+      <a href="https://www.w3.org/WAI/WCAG2AA-Conformance" target="_blank" rel="noopener noreferrer" aria-label="WCAG 2.2 Level AA">
+        <svg id="wcag-badge" width="66" height="24" viewBox="0 0 66 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WCAG 2.2 Level AA">
+          <rect width="66" height="24" rx="3" fill="#005A9C"/>
+          <text x="33" y="9" fill="white" font-size="6" font-family="sans-serif" text-anchor="middle" font-weight="bold">WCAG 2.2</text>
+          <text x="33" y="19" fill="white" font-size="7" font-family="sans-serif" text-anchor="middle" font-weight="bold">Level AA</text>
+        </svg>
+      </a>
 
-<!-- W3C Valid HTML -->
-<a href="https://validator.w3.org/nu/?doc=https://shahiftah.me/" target="_blank" rel="noopener noreferrer" aria-label="W3C Valid HTML">
-  <svg id="w3c-badge" width="66" height="24" viewBox="0 0 66 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="W3C Valid HTML">
-    <rect width="66" height="24" rx="3" fill="#005A9C"/>
-    <text x="33" y="9" fill="white" font-size="6" font-family="sans-serif" text-anchor="middle" font-weight="bold">W3C</text>
-    <text x="33" y="19" fill="white" font-size="7" font-family="sans-serif" text-anchor="middle" font-weight="bold">Valid HTML</text>
-  </svg>
-</a>
+      <a href="https://validator.w3.org/nu/?doc=https://shahiftah.me/" target="_blank" rel="noopener noreferrer" aria-label="W3C Valid HTML">
+        <svg id="w3c-badge" width="66" height="24" viewBox="0 0 66 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="W3C Valid HTML">
+          <rect width="66" height="24" rx="3" fill="#005A9C"/>
+          <text x="33" y="9" fill="white" font-size="6" font-family="sans-serif" text-anchor="middle" font-weight="bold">W3C</text>
+          <text x="33" y="19" fill="white" font-size="7" font-family="sans-serif" text-anchor="middle" font-weight="bold">Valid HTML</text>
+        </svg>
+      </a>
 
-<!-- GDPR -->
-<span role="img" aria-label="GDPR compliant - ingen tracking">
-  <svg id="gdpr-badge" width="66" height="24" viewBox="0 0 66 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GDPR compliant">
-    <rect width="66" height="24" rx="3" fill="#2E7D32"/>
-    <text x="33" y="9" fill="white" font-size="6" font-family="sans-serif" text-anchor="middle" font-weight="bold">GDPR</text>
-    <text x="33" y="19" fill="white" font-size="7" font-family="sans-serif" text-anchor="middle" font-weight="bold">Compliant</text>
-  </svg>
-</span>
+      <span role="img" aria-label="GDPR compliant - ingen tracking">
+        <svg id="gdpr-badge" width="66" height="24" viewBox="0 0 66 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GDPR compliant">
+          <rect width="66" height="24" rx="3" fill="#2E7D32"/>
+          <text x="33" y="9" fill="white" font-size="6" font-family="sans-serif" text-anchor="middle" font-weight="bold">GDPR</text>
+          <text x="33" y="19" fill="white" font-size="7" font-family="sans-serif" text-anchor="middle" font-weight="bold">Compliant</text>
+        </svg>
+      </span>
 
-<!-- MIT License -->
-<a href="https://github.com/ShahiFtah?tab=repositories" target="_blank" rel="noopener noreferrer" aria-label="MIT License">
-  <svg id="mit-badge" width="66" height="24" viewBox="0 0 66 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MIT License">
-    <rect width="66" height="24" rx="3" fill="#333"/>
-    <text x="33" y="9" fill="white" font-size="6" font-family="sans-serif" text-anchor="middle" font-weight="bold">License</text>
-    <text x="33" y="19" fill="white" font-size="7" font-family="sans-serif" text-anchor="middle" font-weight="bold">MIT</text>
-  </svg>
-</a>
+      <a href="https://github.com/ShahiFtah?tab=repositories" target="_blank" rel="noopener noreferrer" aria-label="MIT License">
+        <svg id="mit-badge" width="66" height="24" viewBox="0 0 66 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MIT License">
+          <rect width="66" height="24" rx="3" fill="#333"/>
+          <text x="33" y="9" fill="white" font-size="6" font-family="sans-serif" text-anchor="middle" font-weight="bold">License</text>
+          <text x="33" y="19" fill="white" font-size="7" font-family="sans-serif" text-anchor="middle" font-weight="bold">MIT</text>
+        </svg>
+      </a>
+    </div>
   </footer>
 </div>
-  
+
 <script>
-  // Cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
+  const hud = document.getElementById('hud');
   document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX - 5 + 'px';
-    cursor.style.top  = e.clientY - 5 + 'px';
-    ring.style.left   = e.clientX - 18 + 'px';
-    ring.style.top    = e.clientY - 18 + 'px';
+    cursor.style.left = e.clientX - 3 + 'px';
+    cursor.style.top  = e.clientY - 3 + 'px';
+    ring.style.left   = e.clientX - 15 + 'px';
+    ring.style.top    = e.clientY - 15 + 'px';
+    hud.textContent = 'X ' + String(e.clientX).padStart(3,'0') + ' · Y ' + String(e.clientY).padStart(3,'0');
   });
 
-  // Scroll reveal
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-const toggle = document.getElementById('theme-toggle');
-toggle.addEventListener('click', () => {
-  document.body.classList.toggle('light');
-toggle.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
-});
-  
+  const toggle = document.getElementById('theme-toggle');
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    toggle.textContent = document.body.classList.contains('dark') ? 'LYS' : 'MØRK';
+  });
+
 </script>
 </body>
 </html>
