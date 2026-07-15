@@ -333,25 +333,64 @@
     .log-issuer { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; }
     .log-status { color: var(--accent); font-size: 0.75rem; }
 
-    /* PROJECTS */
-    .projects-grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
-    .project-card {
-      background: var(--bg); padding: 2.2rem;
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 2rem; transition: background 0.25s;
+    /* PROJECTS — DRAFTING BOARD */
+    .proj-board { display: grid; grid-template-columns: 260px 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); min-height: 480px; }
+
+    .proj-index { background: var(--bg); }
+    .proj-idx-item {
+      display: flex; align-items: baseline; gap: 0.8rem; padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid var(--line); transition: background 0.2s, padding-left 0.25s;
+    }
+    .proj-idx-item:last-child { border-bottom: none; }
+    .proj-idx-item:hover, .proj-idx-item:focus-visible { padding-left: 1.8rem; }
+    .proj-idx-num { font-size: 0.72rem; color: var(--muted); transition: color 0.2s; }
+    .proj-idx-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .proj-idx-item.active { background: var(--bg2); }
+    .proj-idx-item.active .proj-idx-num { color: var(--accent); }
+    .proj-idx-item.active .proj-idx-name { color: var(--fg); }
+
+    .proj-canvas-outer { background: var(--bg); position: relative; padding: 2.5rem; display: flex; flex-direction: column; perspective: 1200px; }
+    .proj-canvas-inner { transition: transform 0.15s ease-out; flex: 1; display: flex; flex-direction: column; }
+
+    .proj-sheet-frame {
+      position: relative; flex: 1; border: 1px solid var(--line); padding: 1.5rem;
+      display: flex; flex-direction: column; min-height: 340px;
       text-decoration: none; color: inherit;
     }
-    .project-card:hover { background: var(--bg2); }
-    .project-card:hover .project-arrow { transform: translate(4px, -4px); color: var(--accent); }
-    .project-num { font-size: 0.72rem; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 0.5rem; }
-    .project-title { font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 1.4rem; margin-bottom: 0.4rem; }
-    .project-desc { font-size: 0.83rem; color: var(--muted); max-width: 420px; line-height: 1.6; }
-    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.8rem; }
-    .project-tag {
-      font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
-      padding: 0.15rem 0.55rem; border: 1px solid var(--line); color: var(--accent);
+    .proj-frame-cx { position: absolute; width: 14px; height: 14px; }
+    .proj-frame-cx::before, .proj-frame-cx::after { content: ''; position: absolute; background: var(--muted); }
+    .proj-frame-cx::before { width: 14px; height: 1px; top: 6px; }
+    .proj-frame-cx::after { width: 1px; height: 14px; left: 6px; }
+    .proj-cx-tl { top: 8px; left: 8px; } .proj-cx-tr { top: 8px; right: 8px; }
+    .proj-cx-bl { bottom: 8px; left: 8px; } .proj-cx-br { bottom: 8px; right: 8px; }
+
+    .proj-diagram-wrap { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .proj-diagram-wrap svg { width: 220px; height: 220px; }
+    .proj-diagram-wrap path, .proj-diagram-wrap circle, .proj-diagram-wrap rect, .proj-diagram-wrap line {
+      stroke: var(--accent); fill: none; stroke-width: 1.2;
     }
-    .project-arrow { font-size: 1.4rem; color: var(--muted); transition: all 0.25s; flex-shrink: 0; }
+    .proj-diagram-wrap .proj-fill-dot { fill: var(--accent); stroke: none; }
+
+    .proj-sheet-info { border-top: 1px solid var(--line); padding-top: 1.2rem; margin-top: 1rem; }
+    .proj-sheet-title-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .proj-sheet-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; }
+    .proj-sheet-arrow { font-size: 1.4rem; color: var(--muted); transition: all 0.25s; flex-shrink: 0; }
+    .proj-sheet-frame:hover .proj-sheet-arrow, .proj-sheet-frame:focus-visible .proj-sheet-arrow { transform: translate(4px, -4px); color: var(--accent); }
+    .proj-sheet-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.7; max-width: 460px; margin-top: 0.5rem; }
+    .proj-sheet-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+    .proj-sheet-tag {
+      font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0.15rem 0.6rem; border: 1px solid var(--line); color: var(--accent);
+    }
+
+    .proj-titleblock {
+      position: absolute; bottom: 8px; right: 8px; font-size: 0.6rem; letter-spacing: 0.08em;
+      color: var(--muted); text-align: right; line-height: 1.5;
+    }
+    .proj-titleblock b { color: var(--accent); }
+
+    @keyframes projDraw { to { stroke-dashoffset: 0; } }
+    @keyframes projFadein { to { opacity: 1; } }
 
     /* CONTACT */
     .contact-inner { text-align: center; }
@@ -395,7 +434,11 @@
     @media (max-width: 720px) {
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       .skills-categories { grid-template-columns: 1fr 1fr; }
-      .project-card { flex-direction: column; align-items: flex-start; }
+      .proj-board { grid-template-columns: 1fr; min-height: 0; }
+      .proj-index { display: flex; overflow-x: auto; }
+      .proj-idx-item { border-bottom: none; border-right: 1px solid var(--line); white-space: nowrap; }
+      .proj-idx-item:hover, .proj-idx-item:focus-visible { padding-left: 1.4rem; }
+      .proj-sheet-frame { min-height: 280px; }
       .hero-number { display: none; }
       footer { flex-direction: column; text-align: center; }
       nav { padding: 1rem 1.2rem; }
@@ -616,97 +659,42 @@
   <div class="container">
     <h2 id="heading-projects" class="section-label reveal">Prosjekter</h2>
 
-    <div class="projects-grid reveal">
+    <div class="proj-board reveal" id="projBoard">
+      <div class="proj-index" id="projIndex" role="tablist" aria-label="Prosjektliste">
+        <div class="proj-idx-item active" data-i="0" role="tab" tabindex="0" aria-selected="true"><span class="proj-idx-num">01</span><span class="proj-idx-name">LLM Chatbot</span></div>
+        <div class="proj-idx-item" data-i="1" role="tab" tabindex="0" aria-selected="false"><span class="proj-idx-num">02</span><span class="proj-idx-name">Fingerdeteksjon</span></div>
+        <div class="proj-idx-item" data-i="2" role="tab" tabindex="0" aria-selected="false"><span class="proj-idx-num">03</span><span class="proj-idx-name">Sunify — Solcelleapp</span></div>
+        <div class="proj-idx-item" data-i="3" role="tab" tabindex="0" aria-selected="false"><span class="proj-idx-num">04</span><span class="proj-idx-name">UDP Directory Service</span></div>
+        <div class="proj-idx-item" data-i="4" role="tab" tabindex="0" aria-selected="false"><span class="proj-idx-num">05</span><span class="proj-idx-name">Labyrint-løser</span></div>
+        <div class="proj-idx-item" data-i="5" role="tab" tabindex="0" aria-selected="false"><span class="proj-idx-num">06</span><span class="proj-idx-name">Event-Driven Microservices</span></div>
+        <div class="proj-idx-item" data-i="6" role="tab" tabindex="0" aria-selected="false"><span class="proj-idx-num">07</span><span class="proj-idx-name">Flappy Bird</span></div>
+      </div>
 
-      <a href="https://github.com/ShahiFtah/LLM---CHATBOT" target="_blank" class="project-card">
-        <div class="project-info">
-          <div class="project-num">PRJ · 01</div>
-          <div class="project-title">LLM Chatbot</div>
-          <div class="project-desc">Personlig AI-chatbot med OpenRouter sitt gratis API. Kjører i nettleseren uten backend-kostnad.</div>
-          <div class="project-tags">
-            <span class="project-tag">HTML</span><span class="project-tag">JavaScript</span><span class="project-tag">AI / LLM</span>
-          </div>
+      <div class="proj-canvas-outer" id="projCanvasOuter">
+        <div class="proj-canvas-inner" id="projCanvasInner">
+          <a href="https://github.com/ShahiFtah/LLM---CHATBOT" target="_blank" rel="noopener noreferrer" class="proj-sheet-frame" id="projSheetLink" aria-label="Åpne prosjekt på GitHub (åpnes i ny fane)">
+            <div class="proj-frame-cx proj-cx-tl"></div><div class="proj-frame-cx proj-cx-tr"></div>
+            <div class="proj-frame-cx proj-cx-bl"></div><div class="proj-frame-cx proj-cx-br"></div>
+
+            <div class="proj-diagram-wrap" id="projDiagramWrap" aria-hidden="true"></div>
+
+            <div class="proj-sheet-info">
+              <div class="proj-sheet-title-row">
+                <div class="proj-sheet-title" id="projSTitle"></div>
+                <span class="proj-sheet-arrow" aria-hidden="true">↗</span>
+              </div>
+              <div class="proj-sheet-desc" id="projSDesc"></div>
+              <div class="proj-sheet-tags" id="projSTags"></div>
+            </div>
+
+            <div class="proj-titleblock">SHEET <b id="projSNum"></b>/07 · SF ARCHIVE</div>
+          </a>
         </div>
-        <span class="project-arrow">↗</span>
-      </a>
+      </div>
+    </div>
 
-      <a href="https://github.com/ShahiFtah/finger-detection-projects" target="_blank" class="project-card">
-        <div class="project-info">
-          <div class="project-num">PRJ · 02</div>
-          <div class="project-title">Fingerdeteksjon</div>
-          <div class="project-desc">Sanntids fingerdeteksjon med MediaPipe og OpenCV. Dots, håndkontroller og visualisering live.</div>
-          <div class="project-tags">
-            <span class="project-tag">Python</span><span class="project-tag">MediaPipe</span><span class="project-tag">OpenCV</span><span class="project-tag">CV</span>
-          </div>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/ShahiFtah/Sunify_SolcelleApp" target="_blank" class="project-card">
-        <div class="project-info">
-          <div class="project-num">PRJ · 03</div>
-          <div class="project-title">Sunify — Solcelleapp</div>
-          <div class="project-desc">Android-app for solcelleenergiovervåking og optimalisering, bygget i Kotlin.</div>
-          <div class="project-tags">
-            <span class="project-tag">Kotlin</span><span class="project-tag">Android</span><span class="project-tag">Mobile</span>
-          </div>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/ShahiFtah/UDP-Directory-Service-Client" target="_blank" class="project-card">
-        <div class="project-info">
-          <div class="project-num">PRJ · 04</div>
-          <div class="project-title">UDP Directory Service</div>
-          <div class="project-desc">UDP-basert katalogservice med klient–server-kommunikasjon, ACK-mekanisme og trestruktur.</div>
-          <div class="project-tags">
-            <span class="project-tag">C</span><span class="project-tag">Nettverk</span><span class="project-tag">UDP</span>
-          </div>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/ShahiFtah/Labyrint" target="_blank" class="project-card">
-        <div class="project-info">
-          <div class="project-num">PRJ · 05</div>
-          <div class="project-title">Labyrint-løser</div>
-          <div class="project-desc">Rekursivt program som finner alle utganger i en labyrint — sykliske og asykliske med polymorfisme.</div>
-          <div class="project-tags">
-            <span class="project-tag">Java</span><span class="project-tag">Rekursjon</span><span class="project-tag">Algoritmer</span>
-          </div>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/ShahiFtah/Blue-Zone-participant---Event-Driven-Microservices-Workshop" target="_blank" class="project-card">
-        <div class="project-info">
-          <div class="project-num">PRJ · 06</div>
-          <div class="project-title">Event-Driven Microservices</div>
-          <div class="project-desc">Event-drevet mikrotjenestarkitektur med TypeScript og meldingskøer. Workshop-prosjekt.</div>
-          <div class="project-tags">
-            <span class="project-tag">TypeScript</span><span class="project-tag">Microservices</span><span class="project-tag">DevOps</span>
-          </div>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/ShahiFtah/MyOwnFlappyBird" target="_blank" class="project-card">
-        <div class="project-info">
-          <div class="project-num">PRJ · 07</div>
-          <div class="project-title">Flappy Bird</div>
-          <div class="project-desc">Egenlaget Flappy Bird med TypeScript. Game-loop, kollisjonsdeteksjon og poengsystem.</div>
-          <div class="project-tags">
-            <span class="project-tag">TypeScript</span><span class="project-tag">Game Dev</span>
-          </div>
-        </div>
-        <span class="project-arrow">↗</span>
-      </a>
-
-      <a href="https://github.com/ShahiFtah" target="_blank" class="project-card" style="justify-content:center; text-align:center; flex-direction:column; gap:0.5rem; border-top: 1px solid var(--line);">
-        <div style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted);">Og mer</div>
-        <div style="font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:1.25rem;">Se alle prosjekter →</div>
-      </a>
-
+    <div style="text-align:center; margin-top:2rem;">
+      <a href="https://github.com/ShahiFtah" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Se alle prosjekter ↗</a>
     </div>
   </div>
 </section>
@@ -797,6 +785,154 @@
     toggle.textContent = document.body.classList.contains('dark') ? 'LYS' : 'MØRK';
   });
 
+</script>
+
+<!-- PROJECTS BOARD -->
+<script>
+(function () {
+  const projects = [
+    {
+      title: "LLM Chatbot",
+      url: "https://github.com/ShahiFtah/LLM---CHATBOT",
+      desc: "Personlig AI-chatbot med OpenRouter sitt gratis API. Kjører i nettleseren uten backend-kostnad.",
+      tags: ["HTML", "JavaScript", "AI / LLM"],
+      paths: [
+        "M40 50 H180 Q190 50 190 60 V140 Q190 150 180 150 H90 L60 180 V150 H40 Q30 150 30 140 V60 Q30 50 40 50 Z"
+      ],
+      dots: [[80, 100], [110, 100], [140, 100]]
+    },
+    {
+      title: "Fingerdeteksjon",
+      url: "https://github.com/ShahiFtah/finger-detection-projects",
+      desc: "Sanntids fingerdeteksjon med MediaPipe og OpenCV. Dots, håndkontroller og visualisering live.",
+      tags: ["Python", "MediaPipe", "OpenCV", "CV"],
+      paths: [
+        "M60 160 L90 90 L100 40", "M60 160 L120 95 L135 30", "M60 160 L150 100 L165 45",
+        "M60 160 L175 110 L195 65"
+      ],
+      dots: [[100, 40], [135, 30], [165, 45], [195, 65]]
+    },
+    {
+      title: "Sunify — Solcelleapp",
+      url: "https://github.com/ShahiFtah/Sunify_SolcelleApp",
+      desc: "Android-app for solcelleenergiovervåking og optimalisering, bygget i Kotlin.",
+      tags: ["Kotlin", "Android", "Mobile"],
+      paths: [
+        "M152,110 A42 42 0 1 1 68,110 A42 42 0 1 1 152,110",
+        "M152,110 L170,110", "M139.7,139.7 L152.4,152.4", "M110,152 L110,170", "M80.3,139.7 L67.6,152.4",
+        "M68,110 L50,110", "M80.3,80.3 L67.6,67.6", "M110,68 L110,50", "M139.7,80.3 L152.4,67.6"
+      ],
+      dots: [[95, 95], [125, 95], [95, 125], [125, 125]]
+    },
+    {
+      title: "UDP Directory Service",
+      url: "https://github.com/ShahiFtah/UDP-Directory-Service-Client",
+      desc: "UDP-basert katalogservice med klient–server-kommunikasjon, ACK-mekanisme og trestruktur.",
+      tags: ["C", "Nettverk", "UDP"],
+      paths: [
+        "M110 30 V60", "M110 60 L60 100", "M110 60 L160 100",
+        "M60 100 V130", "M160 100 V130",
+        "M60 130 L30 170", "M60 130 L90 170", "M160 130 L130 170", "M160 130 L190 170"
+      ],
+      dots: [[110, 30], [110, 60], [60, 100], [160, 100], [60, 130], [160, 130], [30, 170], [90, 170], [130, 170], [190, 170]]
+    },
+    {
+      title: "Labyrint-løser",
+      url: "https://github.com/ShahiFtah/Labyrint",
+      desc: "Rekursivt program som finner alle utganger i en labyrint — sykliske og asykliske med polymorfisme.",
+      tags: ["Java", "Rekursjon", "Algoritmer"],
+      paths: ["M30 30 H190 V95 H95 V190 H30 Z M95 95 V30 M140 95 V190"],
+      dots: []
+    },
+    {
+      title: "Event-Driven Microservices",
+      url: "https://github.com/ShahiFtah/Blue-Zone-participant---Event-Driven-Microservices-Workshop",
+      desc: "Event-drevet mikrotjenestarkitektur med TypeScript og meldingskøer. Workshop-prosjekt.",
+      tags: ["TypeScript", "Microservices", "DevOps"],
+      paths: ["M110 40 L60 110 M110 40 L165 110 M65 118 L105 175 M160 118 L120 175 M70 112 L155 112"],
+      dots: [[110, 40], [60, 112], [165, 112], [105, 178], [120, 178]]
+    },
+    {
+      title: "Flappy Bird",
+      url: "https://github.com/ShahiFtah/MyOwnFlappyBird",
+      desc: "Egenlaget Flappy Bird med TypeScript. Game-loop, kollisjonsdeteksjon og poengsystem.",
+      tags: ["TypeScript", "Game Dev"],
+      paths: ["M30 30 H190 V190 H30 Z", "M30 75 H190", "M30 120 H190", "M95 30 V190", "M140 30 V190"],
+      dots: [[112, 102]]
+    }
+  ];
+
+  const diagramWrap = document.getElementById('projDiagramWrap');
+  const sTitle = document.getElementById('projSTitle');
+  const sDesc = document.getElementById('projSDesc');
+  const sTags = document.getElementById('projSTags');
+  const sNum = document.getElementById('projSNum');
+  const sheetLink = document.getElementById('projSheetLink');
+  const projIndex = document.getElementById('projIndex');
+
+  function renderDiagram(p) {
+    let svg = `<svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">`;
+    p.paths.forEach((d, i) => {
+      svg += `<path d="${d}" style="animation:projDraw 0.9s ${i * 0.12}s ease forwards"/>`;
+    });
+    p.dots.forEach(([x, y]) => {
+      svg += `<circle class="proj-fill-dot" cx="${x}" cy="${y}" r="3" style="opacity:0;animation:projFadein 0.4s ${p.paths.length * 0.12 + 0.3}s forwards"/>`;
+    });
+    svg += `</svg>`;
+    diagramWrap.innerHTML = svg;
+
+    diagramWrap.querySelectorAll('path').forEach(path => {
+      const len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      path.getBoundingClientRect(); // reflow
+    });
+  }
+
+  function setActive(i) {
+    const p = projects[i];
+    sTitle.textContent = p.title;
+    sDesc.textContent = p.desc;
+    sTags.innerHTML = p.tags.map(t => `<span class="proj-sheet-tag">${t}</span>`).join('');
+    sNum.textContent = String(i + 1).padStart(2, '0');
+    sheetLink.href = p.url;
+    renderDiagram(p);
+
+    projIndex.querySelectorAll('.proj-idx-item').forEach(el => {
+      const active = +el.dataset.i === i;
+      el.classList.toggle('active', active);
+      el.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+  }
+
+  projIndex.addEventListener('click', e => {
+    const item = e.target.closest('.proj-idx-item');
+    if (item) setActive(+item.dataset.i);
+  });
+  projIndex.addEventListener('mouseover', e => {
+    const item = e.target.closest('.proj-idx-item');
+    if (item) setActive(+item.dataset.i);
+  });
+  projIndex.addEventListener('keydown', e => {
+    const item = e.target.closest('.proj-idx-item');
+    if (item && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      setActive(+item.dataset.i);
+    }
+  });
+
+  const outer = document.getElementById('projCanvasOuter');
+  const inner = document.getElementById('projCanvasInner');
+  outer.addEventListener('mousemove', e => {
+    const r = outer.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    inner.style.transform = `rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+  });
+  outer.addEventListener('mouseleave', () => { inner.style.transform = 'rotateY(0) rotateX(0)'; });
+
+  setActive(0);
+})();
 </script>
 </body>
 </html>
