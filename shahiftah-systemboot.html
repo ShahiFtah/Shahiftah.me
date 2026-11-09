@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="author" content="Shahi Ayad Ftah">
+<link rel="canonical" href="https://shahiftah.me">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/Image.png">
+<link rel="apple-touch-icon" href="/Image.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shahiftah.me">
+<meta property="og:image" content="https://shahiftah.me/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shahiftah.me/og-image.png">
+<meta name="description" content="Shahi Ftah — informatiker fra UiO og masterstudent i entreprenørskap og innovasjonsledelse. Backend, sikkerhet og ting folk trenger.">
+<meta property="og:title" content="Shahi Ftah — Masterstudent i entreprenørskap, innovasjon & IT">
+<meta property="og:description" content="Masterstudent ved UiO med bakgrunn i informatikk, programmering og systemarkitektur.">
+
+<title>Shahi Ftah — SF-OS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1013; --bg2:#15181d; --ink:#ebe5d8; --muted:#8b8f98; --acc:#e0603f; --ok:#7ee2a0; --rule:rgba(235,229,216,.1);
+  --mono:"DM Mono",ui-monospace,monospace; --sans:"Space Grotesk",system-ui,sans-serif;
+}
+:root[data-theme="light"]{--bg:#f2ede3;--bg2:#e9e2d4;--ink:#1a1d22;--muted:#6b6f78;--acc:#b8432a;--ok:#1f8a4c;--rule:rgba(26,29,34,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);overflow-x:hidden;transition:background .5s,color .5s}
+body.locked{overflow:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:200;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.12) 0 1px,transparent 1px 3px);mix-blend-mode:multiply;opacity:.5}
+:root[data-theme="light"] body::after{opacity:.15}
+a{color:inherit}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.mono{font-family:var(--mono)}
+.cap{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.muted{color:var(--muted)}.acc{color:var(--acc)}.ok{color:var(--ok)}
+
+/* ---------- INTRO: BOOT ---------- */
+#intro{position:fixed;inset:0;z-index:100;background:#050607;color:#d8d2c4;display:grid;place-items:center;overflow:hidden}
+#power{width:120px;height:120px;border-radius:50%;border:2px solid #3a3d42;display:grid;place-items:center;position:relative;
+  background:radial-gradient(circle at 50% 35%,#1d2025,#0b0c0e);box-shadow:0 0 0 10px #0b0c0e,0 0 0 11px #24272c}
+#power svg{width:44px;stroke:#6b6f78;fill:none;stroke-width:2.2;stroke-linecap:round;transition:stroke .3s}
+#power:hover svg{stroke:var(--acc)}
+#power::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px solid var(--acc);opacity:0;animation:pulse 2.2s infinite}
+@keyframes pulse{0%{transform:scale(.9);opacity:.6}100%{transform:scale(1.35);opacity:0}}
+.plabel{position:absolute;top:calc(50% + 100px);left:0;right:0;text-align:center;color:#6b6f78}
+#crt{pointer-events:none;position:absolute;left:0;right:0;top:50%;height:2px;background:#fff;transform:scaleX(0);opacity:0;box-shadow:0 0 30px #fff}
+#log{position:absolute;inset:0;pointer-events:none;padding:clamp(20px,5vw,60px);font-family:var(--mono);font-size:clamp(11px,1.3vw,14px);line-height:1.75;white-space:pre-wrap;opacity:0}
+#log .ok{color:#7ee2a0}#log .acc{color:#e0603f}
+.bar{display:inline-block;width:min(360px,60vw);height:10px;border:1px solid #444;vertical-align:middle;margin-left:10px}
+.bar i{display:block;height:100%;width:0;background:#e0603f}
+#skip{position:absolute;right:24px;bottom:20px;color:#6b6f78}
+
+/* ---------- STATUSLINJE ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:20px;padding:10px clamp(16px,4vw,40px);
+  border-bottom:1px solid var(--rule);background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(8px);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+header .logo{font-family:var(--sans);font-weight:700;font-size:16px;letter-spacing:0;text-transform:none;text-decoration:none}
+header .sp{margin-left:auto}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:6px;box-shadow:0 0 8px var(--ok)}
+.mods{display:flex;gap:3px}.mods i{width:10px;height:10px;border:1px solid var(--muted)}.mods i.on{background:var(--acc);border-color:var(--acc)}
+#theme{border:1px solid var(--rule);padding:5px 9px}
+
+section{padding:120px clamp(16px,8vw,120px) 90px;max-width:1300px;margin:0 auto}
+.cmd{font-family:var(--mono);font-size:14px;margin-bottom:26px;display:flex;align-items:center;gap:10px;min-height:22px;flex-wrap:wrap}
+.cmd .p{color:var(--acc)}
+.cmd .t{white-space:pre}
+.cmd .cur{width:9px;height:17px;background:var(--ink);animation:bl 1s steps(2) infinite}
+@keyframes bl{50%{opacity:0}}
+.load{font-family:var(--mono);font-size:12px;color:var(--muted);margin:-14px 0 30px;display:flex;gap:10px;align-items:center}
+.load .lb{width:160px;height:6px;background:var(--rule)}.load .lb i{display:block;height:100%;width:0;background:var(--acc)}
+.mod{opacity:0}
+h2{font-size:clamp(34px,5vw,60px);letter-spacing:-.02em;line-height:1;margin-bottom:34px}
+
+/* hero */
+#hjem{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+h1{font-size:clamp(60px,12vw,180px);line-height:.88;letter-spacing:-.04em;font-weight:700}
+h1 .l2{color:var(--acc);display:block}
+.tagline{font-size:18px;line-height:1.5;max-width:520px;margin-top:30px}
+.stats{display:flex;gap:clamp(24px,6vw,64px);margin-top:40px;flex-wrap:wrap}
+.stats strong{font-size:42px;display:block;font-family:var(--mono);font-weight:500}
+.btns{display:flex;gap:10px;margin-top:36px;flex-wrap:wrap}
+.btn{border:1px solid var(--rule);padding:12px 18px;text-decoration:none;font-family:var(--mono);font-size:13px;transition:border-color .3s,color .3s}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.pri:hover{color:#fff;filter:brightness(1.1)}
+
+.om p{font-size:clamp(22px,2.6vw,32px);line-height:1.3;max-width:880px}
+.om p+p{font-size:18px;color:var(--muted);margin-top:22px;max-width:620px}
+
+/* git log */
+.log{font-family:var(--mono);font-size:14px;border-left:1px solid var(--rule);padding-left:26px}
+.commit{position:relative;padding:0 0 40px}
+.commit::before{content:"";position:absolute;left:-31px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--muted)}
+.commit.head::before{background:var(--acc);border-color:var(--acc)}
+.commit .h{color:var(--acc)}
+.commit h3{font-family:var(--sans);font-size:24px;margin:8px 0 6px}
+.commit p{font-family:var(--sans);color:var(--muted);line-height:1.55;max-width:600px}
+.tag{display:inline-block;border:1px solid var(--ok);color:var(--ok);padding:1px 6px;margin-left:8px;font-size:11px}
+
+/* ls */
+.ls{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.dir{border:1px solid var(--rule);background:var(--bg2);padding:18px}
+.dir .nm{font-family:var(--mono);color:var(--acc);margin-bottom:12px}
+.dir ul{list-style:none;font-family:var(--mono);font-size:13px;line-height:1.9}
+.dir li::before{content:"├─ ";color:var(--muted)}
+.dir li:last-child::before{content:"└─ "}
+.lvl{color:var(--muted);float:right}
+
+/* ps */
+.ps{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:13px}
+.ps th{text-align:left;color:var(--muted);font-weight:400;font-size:11px;letter-spacing:.12em;padding:10px;border-bottom:1px solid var(--rule)}
+.ps td{padding:16px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.ps tr.row{cursor:pointer;transition:background .25s}
+.ps tr.row:hover{background:var(--bg2)}
+.ps tr.row:hover .pn{color:var(--acc)}
+.ps .pn{text-decoration:none;font-family:var(--sans);font-size:18px;font-weight:500;display:block}
+.ps .d{font-family:var(--sans);color:var(--muted);font-size:14px;margin-top:4px;display:block}
+.cpu{width:90px;height:6px;background:var(--rule);display:inline-block;vertical-align:middle}.cpu i{display:block;height:100%;background:var(--ok);width:0}
+.ps-wrap{overflow-x:auto}.ps{min-width:640px}
+
+/* sertifikater */
+.checks{font-family:var(--mono);font-size:clamp(12px,1.4vw,15px);line-height:2.1}
+.chk{display:flex;gap:12px;white-space:nowrap;overflow:hidden}
+.chk .st{flex:none}
+.chk .fill{flex:1;overflow:hidden;color:var(--muted)}
+.chk .fill::after{content:" ............................................................................................................................................."}
+.chk .who{flex:none;color:var(--muted)}
+
+/* kontakt + terminal */
+#kontakt{min-height:90vh;display:flex;flex-direction:column;justify-content:center}
+#kontakt h2{font-size:clamp(46px,9vw,124px)}
+.term{margin-top:40px;border:1px solid var(--rule);background:var(--bg2);max-width:720px}
+.term .top{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--rule)}
+.term .top i{width:10px;height:10px;border-radius:50%;background:var(--rule)}
+#out{font-family:var(--mono);font-size:13px;line-height:1.7;padding:14px 16px;max-height:240px;overflow:auto;white-space:pre-wrap}
+.inrow{display:flex;gap:10px;padding:0 16px 14px;font-family:var(--mono);font-size:13px;align-items:center}
+#in{flex:1;background:none;border:0;color:var(--ink);font:inherit;outline:none;caret-color:var(--acc)}
+footer{padding:40px clamp(16px,8vw,120px) 60px;border-top:1px solid var(--rule)}
+@media (max-width:760px){header .hide{display:none}}
+@media (prefers-reduced-motion:reduce){#intro{display:none}.mod{opacity:1}}
+</style>
+</head>
+<body class="locked">
+
+<!-- ================= INTRO ================= -->
+<div id="intro" role="dialog" aria-label="Velkommen">
+  <button id="power" aria-label="Start systemet og gå inn på siden"><svg viewBox="0 0 48 48"><path d="M24 6v18"/><path d="M14 12a15 15 0 1 0 20 0"/></svg></button>
+  <p class="plabel cap" id="plabel">Trykk for å starte SF-OS</p>
+  <div id="crt"></div>
+  <div id="log" aria-live="polite"></div>
+  <button id="skip" class="cap">Hopp over →</button>
+</div>
+
+<!-- ================= STATUS ================= -->
+<header>
+  <a href="#hjem" class="logo">SF.</a>
+  <span class="hide"><span class="dot"></span>Online</span>
+  <span class="hide">Oppetid <span id="up">00:00:00</span></span>
+  <span class="sp">Moduler</span><span class="mods" id="mods"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+  <button id="theme" class="cap" aria-label="Bytt til lys modus">Lys</button>
+</header>
+
+<main>
+  <section id="hjem">
+    <div class="cmd" data-cmd="whoami" data-auto></div>
+    <h1><span data-scramble>Shahi</span><span class="l2" data-scramble>Ftah.</span></h1>
+    <p class="cap muted hero-in" style="margin-top:28px">Utvikler · Entreprenør · Systemer — UiO · Oslo</p>
+    <p class="tagline hero-in">Bygger systemer som faktisk fungerer, og forstår forretningen bak dem.</p>
+    <div class="stats hero-in">
+      <div><strong data-count="3" data-suffix="+">0</strong><span class="cap muted">År som gruppelærer</span></div>
+      <div><strong data-count="10">0</strong><span class="cap muted">Sertifiseringer</span></div>
+      <div><strong data-count="8">0</strong><span class="cap muted">Programmeringsspråk</span></div>
+    </div>
+    <div class="btns hero-in">
+      <a class="btn pri" href="mailto:shahi55@outlook.com">./kontakt ↗</a>
+      <a class="btn" href="https://github.com/ShahiFtah">github</a>
+      <a class="btn" href="https://www.linkedin.com/in/shahiftah/">linkedin</a>
+      <a class="btn" href="https://www.credly.com/users/shahi-ftah">credly ↗</a>
+    </div>
+  </section>
+
+  <section id="om" class="om" data-module>
+    <div class="cmd" data-cmd="cat om_meg.md"></div>
+    <div class="load"><span>laster modul</span><span class="lb"><i></i></span><span class="pct">0%</span></div>
+    <div class="mod">
+      <p>Jeg bygger systemer som løser ekte problemer, fra fingerdeteksjon med Computer Vision til event-drevne mikrotjenester.</p>
+      <p>Ved siden av studiene har jeg i tre år veiledet medstudenter som gruppelærer i IN1020, og jeg har erfaring fra flere bransjer. Se full oversikt på <a href="https://www.linkedin.com/in/shahiftah/">LinkedIn ↗</a>.</p>
+    </div>
+  </section>
+
+  <section id="historikk" data-module>
+    <div class="cmd" data-cmd="git log --reverse"></div>
+    <div class="load"><span>laster modul</span><span class="lb"><i></i></span><span class="pct">0%</span></div>
+    <div class="mod">
+      <h2>Historikk.</h2>
+      <div class="log">
+        <div class="commit"><span class="h">c0ffee1</span> <span class="muted">· 2019–2022</span><h3>init: Mysen VGS, realfag</h3><p>Første commit. Grunnlaget i matte og realfag.</p></div>
+        <div class="commit"><span class="h">b4c4e10</span> <span class="muted">· 2022–2026</span><h3>feat: Bachelor Informatikk (PROSA), UiO</h3><p>Algoritmer og datastrukturer, databaser, operativsystemer, IT-sikkerhet, systemutvikling, digital teknologi og samfunn, mikroøkonomi.</p></div>
+        <div class="commit"><span class="h">7ea4c4e</span> <span class="muted">· 3 år</span><h3>feat: gruppelærer i IN1020</h3><p>Veiledet medstudenter.</p></div>
+        <div class="commit head"><span class="h">5f7a2b9</span> <span class="muted">· høst 2026 →</span><span class="tag">HEAD</span><h3>wip: Master i entreprenørskap og innovasjonsledelse, UiO</h3><p>Der teknologi møter forretning. Pågår.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ferdigheter" data-module>
+    <div class="cmd" data-cmd="ls ~/ferdigheter"></div>
+    <div class="load"><span>laster modul</span><span class="lb"><i></i></span><span class="pct">0%</span></div>
+    <div class="mod">
+      <h2>Ferdigheter.</h2>
+      <div class="ls">
+        <div class="dir"><div class="nm">programmering/</div><ul><li>python</li><li>java</li><li>c</li><li>kotlin</li><li>typescript</li><li>sql</li><li>scheme</li><li>html-css</li></ul></div>
+        <div class="dir"><div class="nm">verktøy/</div><ul><li>git · github</li><li>linux · unix</li><li>android-studio</li><li>ssh</li><li>figma</li><li>api · bruno</li><li>databaser</li><li>m365</li></ul></div>
+        <div class="dir"><div class="nm">metodikk/</div><ul><li>agile · scrum</li><li>kanban</li><li>devops</li><li>ci-cd</li><li>tdd</li><li>ai-fundamentals</li><li>it-sikkerhet · personvern</li><li>kunderådgivning</li></ul></div>
+        <div class="dir"><div class="nm">språk/</div><ul><li>norsk <span class="lvl">morsmål</span></li><li>engelsk <span class="lvl">flytende</span></li><li>kurdisk <span class="lvl">flytende</span></li><li>arabisk <span class="lvl">middels</span></li><li>spansk <span class="lvl">grunnleggende</span></li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prosjekter" data-module>
+    <div class="cmd" data-cmd="ps aux | grep prosjekt"></div>
+    <div class="load"><span>laster modul</span><span class="lb"><i></i></span><span class="pct">0%</span></div>
+    <div class="mod">
+      <h2>Prosesser.</h2>
+      <div class="ps-wrap"><table class="ps">
+        <thead><tr><th>PID</th><th>PROSESS</th><th>STATUS</th><th>CPU</th></tr></thead>
+        <tbody>
+          <tr class="row" data-href="https://github.com/ShahiFtah/LLM---CHATBOT"><td class="muted">1001</td><td><a class="pn" href="https://github.com/ShahiFtah/LLM---CHATBOT">LLM Chatbot ↗</a><span class="d">Personlig AI-chatbot med OpenRouter sitt gratis API. Kjører i nettleseren uten backend-kostnad. · HTML · JS · AI/LLM</span></td><td class="ok">● running</td><td><span class="cpu"><i data-w="82"></i></span></td></tr>
+          <tr class="row" data-href="https://github.com/ShahiFtah"><td class="muted">1002</td><td><a class="pn" href="https://github.com/ShahiFtah">Fingerdeteksjon ↗</a><span class="d">Gjenkjenner fingre med Computer Vision.</span></td><td class="ok">● running</td><td><span class="cpu"><i data-w="94"></i></span></td></tr>
+          <tr class="row" data-href="https://github.com/ShahiFtah"><td class="muted">1003</td><td><a class="pn" href="https://github.com/ShahiFtah">Sunify — Solcelleapp ↗</a><span class="d">App for solcelleanlegg.</span></td><td class="ok">● running</td><td><span class="cpu"><i data-w="61"></i></span></td></tr>
+          <tr class="row" data-href="https://github.com/ShahiFtah"><td class="muted">1004</td><td><a class="pn" href="https://github.com/ShahiFtah">UDP Directory Service ↗</a><span class="d">Katalogtjeneste over UDP.</span></td><td class="ok">● running</td><td><span class="cpu"><i data-w="38"></i></span></td></tr>
+          <tr class="row" data-href="https://github.com/ShahiFtah"><td class="muted">1005</td><td><a class="pn" href="https://github.com/ShahiFtah">Labyrint-løser ↗</a><span class="d">Finner veien gjennom en labyrint algoritmisk.</span></td><td class="ok">● running</td><td><span class="cpu"><i data-w="72"></i></span></td></tr>
+          <tr class="row" data-href="https://github.com/ShahiFtah"><td class="muted">1006</td><td><a class="pn" href="https://github.com/ShahiFtah">Event-Driven Microservices ↗</a><span class="d">Mikrotjenester som snakker sammen gjennom hendelser.</span></td><td class="ok">● running</td><td><span class="cpu"><i data-w="88"></i></span></td></tr>
+          <tr class="row" data-href="https://github.com/ShahiFtah"><td class="muted">1007</td><td><a class="pn" href="https://github.com/ShahiFtah">Flappy Bird ↗</a><span class="d">Egen versjon av klassikeren.</span></td><td class="ok">● running</td><td><span class="cpu"><i data-w="45"></i></span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section id="sertifikater" data-module>
+    <div class="cmd" data-cmd="systemctl verify --sertifikater"></div>
+    <div class="load"><span>laster modul</span><span class="lb"><i></i></span><span class="pct">0%</span></div>
+    <div class="mod">
+      <h2>Verifisert.</h2>
+      <div class="checks" id="checks">
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Elements of AI</span><span class="fill"></span><span class="who">Univ. of Helsinki · NTNU</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Blå sone</span><span class="fill"></span><span class="who">Telenor</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Introduction to DHIS2</span><span class="fill"></span><span class="who">DHIS2 · UiO</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Agile Explorer</span><span class="fill"></span><span class="who">IBM SkillsBuild</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Artificial Intelligence Fundamentals</span><span class="fill"></span><span class="who">IBM SkillsBuild</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Working in a Digital World</span><span class="fill"></span><span class="who">IBM SkillsBuild</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Fundamentals of Digital Marketing</span><span class="fill"></span><span class="who">Google Digital Garage</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Google Analytics for Beginners</span><span class="fill"></span><span class="who">Google Analytics Academy</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Getting Started With Google Analytics 360</span><span class="fill"></span><span class="who">Google Analytics Academy</span></div>
+        <div class="chk"><span class="st">[ <span class="ok">OK</span> ]</span><span>Grunnprinsipper for IKT-sikkerhet</span><span class="fill"></span><span class="who">NSM</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="cmd" data-cmd="./kontakt --med shahi"></div>
+    <h2 data-reveal>La oss koble<br><span class="acc">sammen.</span></h2>
+    <div class="btns" data-reveal>
+      <a class="btn pri" href="mailto:shahi55@outlook.com">send e-post ↗</a>
+      <a class="btn" href="https://www.linkedin.com/in/shahiftah/">linkedin</a>
+      <a class="btn" href="https://www.credly.com/users/shahi-ftah">credly</a>
+    </div>
+    <div class="term" data-reveal>
+      <div class="top"><i></i><i></i><i></i></div>
+      <div id="out">SF-OS 2026.1 — skriv <span class="acc">hjelp</span> for å se kommandoer.</div>
+      <label class="inrow"><span class="acc">gjest@sf:~$</span><input id="in" autocomplete="off" spellcheck="false" aria-label="Skriv en kommando"></label>
+    </div>
+  </section>
+</main>
+<footer class="cap muted">SF-OS 2026.1 · Shahi Ftah · Oslo · <a href="#hjem" style="text-decoration:none">cd ~ ↑</a></footer>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script>
+(() => {
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const intro = $('#intro');
+const t0 = Date.now();
+setInterval(() => { const s = (Date.now() - t0) / 1000 | 0; $('#up').textContent = [s / 3600, s / 60 % 60, s % 60].map(v => String(v | 0).padStart(2, '0')).join(':'); }, 1000);
+const theme = () => { const l = document.documentElement.dataset.theme === 'light'; document.documentElement.dataset.theme = l ? '' : 'light'; $('#theme').textContent = l ? 'Lys' : 'Mørk'; };
+$('#theme').onclick = theme;
+$$('tr.row').forEach(r => r.addEventListener('click', e => { if (e.target.tagName !== 'A') window.open(r.dataset.href, '_blank'); }));
+
+// ---------- mini-terminal ----------
+const out = $('#out'), inp = $('#in');
+let lenis = null;
+const go = id => lenis ? lenis.scrollTo(id, { offset: -50, duration: 1.6 }) : document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+const cmds = {
+  hjelp: () => 'kommandoer: om · historikk · ferdigheter · prosjekter · sertifikater · github · linkedin · epost · tema · clear',
+  om: () => (go('#om'), 'åpner om_meg.md …'), historikk: () => (go('#historikk'), 'git log …'),
+  ferdigheter: () => (go('#ferdigheter'), 'ls ~/ferdigheter …'), prosjekter: () => (go('#prosjekter'), 'ps aux …'),
+  sertifikater: () => (go('#sertifikater'), 'verifiserer …'),
+  github: () => (window.open('https://github.com/ShahiFtah', '_blank'), 'åpner github …'),
+  linkedin: () => (window.open('https://www.linkedin.com/in/shahiftah/', '_blank'), 'åpner linkedin …'),
+  epost: () => (location.href = 'mailto:shahi55@outlook.com', 'åpner e-post …'),
+  tema: () => (theme(), 'tema byttet.'), sudo: () => 'tilgang nektet. men du kan sende meg en e-post 😉',
+  clear: () => (out.innerHTML = '', null)
+};
+inp.addEventListener('keydown', e => { if (e.key !== 'Enter') return; const v = inp.value.trim().toLowerCase(); inp.value = ''; if (!v) return;
+  const k = v.split(' ')[0]; const r = cmds[k] ? cmds[k]() : `${k}: kommando ikke funnet. prøv «hjelp»`;
+  if (r !== null) { out.insertAdjacentHTML('beforeend', `\n<span class="acc">gjest@sf:~$</span> ${v.replace(/</g, '&lt;')}\n${r}`); out.scrollTop = out.scrollHeight; } });
+
+if (!window.gsap || reduce) {
+  intro.remove(); document.body.classList.remove('locked');
+  $$('.cmd').forEach(c => c.innerHTML = `<span class="p">shahi@ftah:~$</span><span class="t">${c.dataset.cmd}</span>`);
+  $$('.load').forEach(l => l.remove()); $$('.mod').forEach(m => m.style.opacity = 1); return;
+}
+gsap.registerPlugin(ScrollTrigger);
+if (window.Lenis) {
+  lenis = new Lenis({ lerp: 0.085 }); lenis.stop(); lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000)); gsap.ticker.lagSmoothing(0);
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); go(a.getAttribute('href')); }));
+}
+
+// ---------- hjelpere ----------
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+async function typeCmd(el, speed = 45) {
+  el.innerHTML = '<span class="p">shahi@ftah:~$</span><span class="t"></span><span class="cur"></span>';
+  const t = el.querySelector('.t');
+  for (const c of el.dataset.cmd) { t.textContent += c; await sleep(speed + Math.random() * 40); }
+  await sleep(200);
+}
+const GL = '!<>-_\\/[]{}—=+*^?#01';
+function scramble(el, dur = 1200) {
+  const fin = el.dataset.final || (el.dataset.final = el.textContent); const st = performance.now();
+  return new Promise(res => { (function f(now) { const p = Math.min(1, (now - st) / dur);
+    el.textContent = [...fin].map((c, i) => i < p * fin.length ? c : GL[Math.random() * GL.length | 0]).join('');
+    p < 1 ? requestAnimationFrame(f) : res(); })(st); });
+}
+$$('[data-scramble]').forEach(el => { el.dataset.final = el.textContent; el.style.visibility = 'hidden'; });
+gsap.set('.hero-in', { autoAlpha: 0, y: 24 });
+
+// ---------- BOOT ----------
+const LOG = [
+  ['SF-BIOS v2.6 · Minne OK · 1 kandidat funnet', ''],
+  ['Starter SF-OS 2026.1 (oslo-x86_64)', ''],
+  ['', 'ok', 'Montert /utdanning (UiO · Informatikk)'],
+  ['', 'ok', 'Lastet 8 programmeringsspråk'],
+  ['', 'ok', 'Startet tjeneste: gruppelærer.service (3 år)'],
+  ['', 'ok', 'Verifisert 10 sertifikater'],
+  ['', 'ok', 'Startet 7 prosesser (prosjekter)'],
+  ['', 'acc', 'Venter på: master-entreprenørskap.service (høst 2026)'],
+  ['BAR'], ['Velkommen, gjest. SF-OS er klar.', '']
+];
+let booted = false;
+async function boot(fast) {
+  if (booted) return; booted = true;
+  const log = $('#log');
+  if (!fast) {
+    gsap.to(['#power', '#plabel'], { autoAlpha: 0, scale: 0.8, duration: 0.3 });
+    await sleep(300);
+    await gsap.timeline().set('#crt', { opacity: 1 }).to('#crt', { scaleX: 1, duration: 0.25, ease: 'power4.in' }).to('#crt', { scaleY: 400, opacity: 0, duration: 0.35, ease: 'power2.out' });
+    gsap.set(log, { opacity: 1 });
+    for (const l of LOG) {
+      if (l[0] === 'BAR') { log.insertAdjacentHTML('beforeend', 'Laster grensesnitt <span class="bar"><i id="bi"></i></span> <span id="bp">0%</span>\n');
+        const o = { v: 0 }; await gsap.to(o, { v: 100, duration: 0.9, ease: 'power2.inOut', onUpdate: () => { $('#bi').style.width = o.v + '%'; $('#bp').textContent = (o.v | 0) + '%'; } }); continue; }
+      const line = l[1] === 'ok' ? `[  <span class="ok">OK</span>  ] ${l[2]}` : l[1] === 'acc' ? `[ <span class="acc">VENT</span> ] ${l[2]}` : l[0];
+      log.insertAdjacentHTML('beforeend', line + '\n'); await sleep(110 + Math.random() * 120);
+    }
+    await sleep(500);
+    await gsap.to(intro, { scale: 1.08, autoAlpha: 0, filter: 'blur(6px)', duration: 0.7, ease: 'power2.in' });
+  } else await gsap.to(intro, { autoAlpha: 0, duration: 0.4 });
+  intro.remove(); document.body.classList.remove('locked'); lenis && lenis.start();
+  hero();
+}
+$('#power').onclick = () => boot(false);
+$('#skip').onclick = () => boot(true);
+gsap.from('#power', { scale: 0.6, autoAlpha: 0, duration: 1, ease: 'expo.out', delay: 0.2 });
+
+async function hero() {
+  await typeCmd($('[data-auto]'), 60);
+  $$('[data-scramble]').forEach((el, i) => { el.style.visibility = ''; setTimeout(() => scramble(el, 1100), i * 220); });
+  gsap.to('.hero-in', { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08, ease: 'expo.out', delay: 0.6 });
+  $$('[data-count]').forEach(el => { const c = { v: 0 }; gsap.to(c, { v: +el.dataset.count, duration: 1.6, delay: 0.9, ease: 'power2.out', onUpdate: () => el.textContent = Math.round(c.v) + (el.dataset.suffix || '') }); });
+}
+
+// ---------- moduler lastes ved scroll ----------
+const modsUi = $$('#mods i');
+$$('section[data-module]').forEach((s, i) => ScrollTrigger.create({ trigger: s, start: 'top 72%', once: true, onEnter: async () => {
+  await typeCmd(s.querySelector('.cmd'), 28);
+  const ld = s.querySelector('.load'), o = { v: 0 };
+  await gsap.to(o, { v: 100, duration: 0.6, ease: 'power2.inOut', onUpdate: () => { ld.querySelector('i').style.width = o.v + '%'; ld.querySelector('.pct').textContent = (o.v | 0) + '%'; } });
+  gsap.to(ld, { height: 0, margin: 0, autoAlpha: 0, duration: 0.4 });
+  modsUi[i] && modsUi[i].classList.add('on');
+  const m = s.querySelector('.mod');
+  gsap.fromTo(m, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: 'expo.out' });
+  gsap.from(m.querySelectorAll('.commit, .dir, .ps tbody tr, .chk'), { autoAlpha: 0, x: -14, duration: 0.5, stagger: 0.07, ease: 'power3.out', delay: 0.15 });
+  m.querySelectorAll('.cpu i').forEach(b => gsap.to(b, { width: b.dataset.w + '%', duration: 1.2, delay: 0.5, ease: 'power3.out' }));
+  m.querySelectorAll('.chk .st .ok').forEach((ok, j) => gsap.from(ok, { autoAlpha: 0, duration: 0.01, delay: 0.3 + j * 0.07 }));
+} }));
+// én modul igjen: kontakt
+ScrollTrigger.create({ trigger: '#kontakt', start: 'top 72%', once: true, onEnter: () => { typeCmd($('#kontakt .cmd'), 30); modsUi.forEach(m => m.classList.add('on')); } });
+$$('[data-reveal]').forEach(el => gsap.from(el, { y: 40, autoAlpha: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
+// CPU-stolpene flimrer litt når de kjører
+setInterval(() => $$('.cpu i').forEach(b => { if (b.style.width) gsap.to(b, { width: Math.max(15, Math.min(99, +b.dataset.w + (Math.random() * 20 - 10))) + '%', duration: 0.8 }); }), 1600);
+})();
+</script>
+</body>
+</html>

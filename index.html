@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="author" content="Shahi Ayad Ftah">
+<link rel="canonical" href="https://shahiftah.me">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/Image.png">
+<link rel="apple-touch-icon" href="/Image.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shahiftah.me">
+<meta property="og:image" content="https://shahiftah.me/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shahiftah.me/og-image.png">
+<meta name="description" content="Shahi Ftah — informatiker fra UiO og masterstudent i entreprenørskap og innovasjonsledelse. Backend, sikkerhet og ting folk trenger.">
+<meta property="og:title" content="Shahi Ftah — Masterstudent i entreprenørskap, innovasjon & IT">
+<meta property="og:description" content="Masterstudent ved UiO med bakgrunn i informatikk, programmering og systemarkitektur.">
+
+<title>Shahi Ftah</title>
+<style>html,body{margin:0;background:#f4f1ea}</style>
+</head>
+<body>
+<noscript><p style="font-family:sans-serif;padding:24px"><a href="shahiftah-tbanelinja.html">Gå til shahiftah.me</a></p></noscript>
+<script>
+/*
+  Nytt design hvert døgn (norsk tid). Alle besøkende ser samme design samme dag.
+  Rekkefølgen går i ring: T-bane → Byggetegning → System-boot → T-bane …
+  Forhåndsvis et bestemt design med ?design=tbane | tegning | boot
+*/
+(function () {
+  var DESIGNS = {
+    tbane:   'shahiftah-tbanelinja.html',
+    tegning: 'shahiftah-byggetegning.html',
+    boot:    'shahiftah-systemboot.html'
+  };
+  var ORDER = ['tbane', 'tegning', 'boot'];
+
+  // dagens dato i Oslo → dagnummer → design
+  var osloDate = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Oslo' }); // "2026-11-09"
+  var p = osloDate.split('-');
+  var day = Math.floor(Date.UTC(+p[0], +p[1] - 1, +p[2]) / 86400000);
+  var key = ORDER[day % ORDER.length];
+
+  var forced = new URLSearchParams(location.search).get('design');
+  if (forced && DESIGNS[forced]) key = forced;
+  var file = DESIGNS[key];
+
+  // Last designet inn uten å endre adressen (shahiftah.me forblir shahiftah.me)
+  fetch(file, { cache: 'no-cache' })
+    .then(function (r) { if (!r.ok) throw 0; return r.text(); })
+    .then(function (html) { document.open(); document.write(html); document.close(); })
+    .catch(function () { location.replace(file); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="author" content="Shahi Ayad Ftah">
+<link rel="canonical" href="https://shahiftah.me">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" href="/Image.png">
+<link rel="apple-touch-icon" href="/Image.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shahiftah.me">
+<meta property="og:image" content="https://shahiftah.me/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shahiftah.me/og-image.png">
+<meta name="description" content="Shahi Ftah — informatiker fra UiO og masterstudent i entreprenørskap og innovasjonsledelse. Backend, sikkerhet og ting folk trenger.">
+<meta property="og:title" content="Shahi Ftah — Masterstudent i entreprenørskap, innovasjon & IT">
+<meta property="og:description" content="Masterstudent ved UiO med bakgrunn i informatikk, programmering og systemarkitektur.">
+
+<title>Shahi Ftah — Byggetegning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f2ece0; --paper2:#ebe3d3; --ink:#1b2a44; --rust:#b8432a; --muted:#69728a;
+  --l1:rgba(27,42,68,.07); --l2:rgba(27,42,68,.14); --stroke:rgba(27,42,68,.55);
+  --mono:"DM Mono",ui-monospace,monospace; --sans:"Space Grotesk",system-ui,sans-serif;
+}
+:root[data-theme="dark"]{ /* cyanotypi – ekte blåkopi */
+  --paper:#0e2a4b; --paper2:#123258; --ink:#e4efff; --rust:#ff9573; --muted:#97afd0;
+  --l1:rgba(200,225,255,.07); --l2:rgba(200,225,255,.16); --stroke:rgba(220,235,255,.6);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{
+  background-color:var(--paper); color:var(--ink); font-family:var(--sans);
+  background-image:
+    linear-gradient(var(--l2) 1px,transparent 1px),linear-gradient(90deg,var(--l2) 1px,transparent 1px),
+    linear-gradient(var(--l1) 1px,transparent 1px),linear-gradient(90deg,var(--l1) 1px,transparent 1px);
+  background-size:120px 120px,120px 120px,24px 24px,24px 24px;
+  transition:background-color .6s,color .6s; overflow-x:hidden;
+}
+body.locked{overflow:hidden}
+a{color:inherit}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.muted{color:var(--muted)}
+.rust{color:var(--rust)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+
+/* ---------- INTRO ---------- */
+#intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:inherit;
+  background-color:var(--paper);background-image:inherit;background-size:inherit}
+.intro-wrap{position:relative;width:min(620px,92vw)}
+.sheet{position:relative;background:var(--paper2);border:1px solid var(--stroke);
+  box-shadow:0 30px 60px -30px rgba(27,42,68,.35);clip-path:inset(0 0 100% 0)}
+.sheet-draw{height:210px;border-bottom:1px solid var(--stroke);position:relative}
+.sheet-draw svg{width:100%;height:100%}
+.tb{display:grid;grid-template-columns:repeat(4,1fr)}
+.tb div{border-right:1px solid var(--l2);border-bottom:1px solid var(--l2);padding:8px 10px;min-height:48px}
+.tb div:nth-child(4n){border-right:0}
+.tb b{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--muted);font-weight:400;margin-bottom:4px}
+.tb span{font-size:13px;font-weight:500}
+.tb .wide{grid-column:span 2}
+#approve{position:relative}
+#imprint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);opacity:0;
+  border:2px solid var(--rust);color:var(--rust);font-family:var(--mono);font-weight:500;font-size:12px;
+  letter-spacing:.18em;padding:3px 8px;border-radius:3px;white-space:nowrap;mix-blend-mode:multiply}
+:root[data-theme="dark"] #imprint{mix-blend-mode:normal}
+.roll{position:absolute;left:-10px;right:-10px;top:-12px;height:24px;border-radius:12px;
+  background:linear-gradient(180deg,#fbf7ef,#d8cdb7 55%,#b9ab90);border:1px solid var(--stroke)}
+#stamp{position:absolute;right:-18px;top:-86px;width:86px;display:flex;flex-direction:column;align-items:center;opacity:0}
+.st-knob{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d46a4f,#8c2c19)}
+.st-neck{width:12px;height:22px;background:#5a4a3a}
+.st-base{width:86px;height:30px;border-radius:4px;background:#2b2b2b;display:grid;place-items:center;
+  color:#ff8a6a;font-family:var(--mono);font-size:10px;letter-spacing:.16em;box-shadow:0 10px 18px -8px rgba(0,0,0,.5)}
+.hint{text-align:center;margin-top:28px;opacity:0}
+#skip{position:fixed;right:24px;bottom:20px;z-index:101}
+
+/* ---------- HUD ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:16px clamp(16px,4vw,40px);border-bottom:1px solid var(--l2);
+  background:color-mix(in srgb,var(--paper) 82%,transparent);backdrop-filter:blur(8px)}
+.logo{font-weight:700;font-size:18px;text-decoration:none}
+nav{display:flex;gap:22px;align-items:center}
+nav a{text-decoration:none}
+nav a:hover{color:var(--rust)}
+#theme{border:1px solid var(--stroke);padding:6px 10px}
+.titleblock{position:fixed;right:clamp(12px,3vw,28px);bottom:clamp(12px,3vw,24px);z-index:50;
+  border:1px solid var(--stroke);background:var(--paper2);display:grid;grid-template-columns:auto auto;font-family:var(--mono);font-size:10px;letter-spacing:.12em}
+.titleblock div{padding:6px 10px;border-right:1px solid var(--l2)}
+.titleblock div:last-child{border-right:0}
+#coords{color:var(--rust);min-width:120px}
+.cross{position:fixed;pointer-events:none;z-index:40;background:var(--rust);opacity:.18}
+#cx{top:0;bottom:0;width:1px}#cy{left:0;right:0;height:1px}
+@media (pointer:coarse){.cross{display:none}}
+
+/* ---------- SEKSJONER ---------- */
+main{position:relative}
+section{padding:140px clamp(16px,8vw,120px) 100px;position:relative;max-width:1400px;margin:0 auto}
+.sheethead{display:flex;align-items:center;gap:14px;margin-bottom:48px}
+.sheethead .ln{flex:1;height:1px;background:var(--stroke);transform-origin:left}
+h2{font-size:clamp(34px,5vw,64px);line-height:1;letter-spacing:-.02em;font-weight:700;margin-bottom:28px}
+
+/* hero */
+#hjem{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.namewrap{position:relative;display:inline-block;align-self:flex-start}
+.dim{position:absolute;left:0;right:0;top:-34px;height:14px;transform-origin:left}
+.dim::before{content:"";position:absolute;left:0;right:0;top:7px;height:1px;background:var(--rust)}
+.dim i{position:absolute;top:0;width:1px;height:14px;background:var(--rust)}
+.dim i:last-child{right:0}
+.dim span{position:absolute;left:50%;top:-6px;transform:translateX(-50%);background:var(--paper);padding:0 8px;color:var(--rust)}
+h1{font-size:clamp(64px,13vw,190px);line-height:.88;letter-spacing:-.04em;font-weight:700}
+h1 .l2{color:var(--rust);display:block}
+.ch-w{display:inline-block;overflow:hidden;vertical-align:top}
+.ch{display:inline-block}
+.tagline{margin-top:30px;max-width:520px;font-size:18px;line-height:1.5}
+.stats{display:flex;gap:clamp(24px,6vw,72px);margin-top:44px;flex-wrap:wrap}
+.stats strong{font-size:44px;display:block;font-weight:700}
+.btns{display:flex;gap:10px;margin-top:40px;flex-wrap:wrap}
+.btn{border:1px solid var(--stroke);padding:12px 18px;text-decoration:none;font-size:14px;transition:background .3s,color .3s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.pri{background:var(--rust);border-color:var(--rust);color:#fff}
+.bgsf{position:absolute;right:-2vw;top:28%;font-size:38vw;font-weight:700;line-height:1;color:transparent;
+  -webkit-text-stroke:1px var(--l2);pointer-events:none;user-select:none;z-index:-1}
+
+/* om */
+.om p{font-size:clamp(22px,2.6vw,34px);line-height:1.3;max-width:900px;letter-spacing:-.01em}
+.om p+p{font-size:18px;color:var(--muted);margin-top:24px;max-width:640px}
+
+/* faser */
+.phases{position:relative;padding-left:56px}
+.rail{position:absolute;left:14px;top:0;bottom:0;width:1px;background:var(--l2)}
+.rail-fill{position:absolute;inset:0;background:var(--rust);transform-origin:top;transform:scaleY(0)}
+.phase{position:relative;padding:0 0 64px}
+.phase::before{content:"";position:absolute;left:-48px;top:6px;width:13px;height:13px;border:1px solid var(--stroke);background:var(--paper);transform:rotate(45deg)}
+.phase.live::before{background:var(--rust);border-color:var(--rust)}
+.phase h3{font-size:26px;margin:8px 0 6px}
+.phase p{color:var(--muted);max-width:560px;line-height:1.55}
+.status{display:inline-block;margin-left:10px;padding:2px 6px;border:1px solid currentColor}
+
+/* materialliste */
+.bom{width:100%;border-collapse:collapse;font-size:15px}
+.bom th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--muted);font-weight:400;padding:10px;border-bottom:1px solid var(--stroke)}
+.bom td{padding:12px 10px;border-bottom:1px solid var(--l2);vertical-align:top}
+.bom td:first-child{font-family:var(--mono);color:var(--rust);width:70px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{border:1px solid var(--l2);padding:4px 8px;font-size:13px}
+.lvl{display:inline-flex;gap:3px;margin-left:8px;vertical-align:middle}
+.lvl i{width:14px;height:4px;background:var(--l2)}
+.lvl i.on{background:var(--ink)}
+
+/* prosjekter */
+#prosjekter{max-width:none;padding-left:0;padding-right:0;overflow:hidden}
+#prosjekter .sheethead,#prosjekter h2{padding:0 clamp(16px,8vw,120px)}
+.track{display:flex;gap:28px;padding:0 clamp(16px,8vw,120px);width:max-content}
+.card{width:min(420px,80vw);border:1px solid var(--stroke);background:var(--paper2);display:flex;flex-direction:column;text-decoration:none}
+.card .art{height:220px;border-bottom:1px solid var(--stroke);display:grid;place-items:center}
+.card .art svg{width:70%;height:75%;fill:none;stroke:var(--ink);stroke-width:1.4}
+.card .art svg .acc{stroke:var(--rust)}
+.card .body{padding:20px}
+.card h3{font-size:24px;margin:8px 0}
+.card p{color:var(--muted);line-height:1.5;font-size:15px}
+.card .foot{margin-top:auto;display:flex;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--l2)}
+.card:hover h3{color:var(--rust)}
+
+/* godkjenninger */
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.cert{border:1px solid var(--l2);padding:18px;position:relative;min-height:120px;background:color-mix(in srgb,var(--paper2) 60%,transparent)}
+.cert h4{font-size:17px;margin:8px 0 4px;padding-right:70px}
+.cert .ok{position:absolute;right:12px;top:14px;border:1.5px solid var(--rust);color:var(--rust);
+  font-family:var(--mono);font-size:9px;letter-spacing:.14em;padding:2px 6px;transform:rotate(-8deg);border-radius:2px}
+
+/* kontakt */
+#kontakt{min-height:90vh;display:flex;flex-direction:column;justify-content:center}
+#kontakt h2{font-size:clamp(48px,9vw,130px)}
+.sig{width:min(460px,90%);height:90px;margin:10px 0 0}
+.sig path{fill:none;stroke:var(--rust);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sigline{width:min(460px,90%);border-top:1px solid var(--stroke);padding-top:8px}
+footer{padding:40px clamp(16px,8vw,120px) 90px;border-top:1px solid var(--l2)}
+
+@media (max-width:760px){
+  nav a{display:none} .tb{grid-template-columns:repeat(2,1fr)} .tb div:nth-child(2n){border-right:0}
+  .sheet-draw{height:150px} #stamp{right:-6px;top:-80px;transform:scale(.85)} .titleblock div:first-child{display:none}
+}
+@media (prefers-reduced-motion:reduce){#intro{display:none}}
+</style>
+</head>
+<body class="locked">
+
+<!-- ================= INTRO: STEMPLE TEGNINGEN ================= -->
+<div id="intro" role="dialog" aria-label="Velkommen">
+  <div class="intro-wrap">
+    <div class="sheet" id="sheet">
+      <div class="sheet-draw">
+        <svg viewBox="0 0 620 210" fill="none" stroke="currentColor" aria-hidden="true">
+          <g class="draw" stroke="var(--stroke)" stroke-width="1">
+            <text x="200" y="160" font-family="Space Grotesk" font-weight="700" font-size="150" stroke-width="1.2">SF</text>
+            <line x1="200" y1="30" x2="420" y2="30"/><line x1="200" y1="22" x2="200" y2="38"/><line x1="420" y1="22" x2="420" y2="38"/>
+            <line x1="460" y1="52" x2="460" y2="160"/><line x1="452" y1="52" x2="468" y2="52"/><line x1="452" y1="160" x2="468" y2="160"/>
+            <circle cx="110" cy="105" r="44"/><line x1="56" y1="105" x2="164" y2="105"/><line x1="110" y1="51" x2="110" y2="159"/>
+          </g>
+          <text x="290" y="24" fill="var(--rust)" stroke="none" font-family="DM Mono" font-size="10" letter-spacing="1.5">220</text>
+          <text x="472" y="110" fill="var(--rust)" stroke="none" font-family="DM Mono" font-size="10" letter-spacing="1.5">108</text>
+        </svg>
+      </div>
+      <div class="tb">
+        <div><b>TEGNINGSNR</b><span>SF-2026-001</span></div>
+        <div class="wide"><b>PROSJEKT</b><span>SHAHI FTAH</span></div>
+        <div><b>REV</b><span>2026</span></div>
+        <div class="wide"><b>BESKRIVELSE</b><span>Utvikler · Entreprenør · Systemer</span></div>
+        <div><b>MÅLESTOKK</b><span>1:1</span></div>
+        <div><b>STED</b><span>Oslo</span></div>
+        <div><b>TEGNET AV</b><span>S. Ftah</span></div>
+        <div><b>INSTITUSJON</b><span>UiO</span></div>
+        <div class="wide" id="approve"><b>GODKJENT</b><span id="imprint">✓ GODKJENT</span></div>
+      </div>
+    </div>
+    <div class="roll" id="roll" aria-hidden="true"></div>
+    <button id="stamp" aria-label="Godkjenn tegningen og gå inn på siden">
+      <span class="st-knob"></span><span class="st-neck"></span><span class="st-base">GODKJENT</span>
+    </button>
+    <p class="hint mono muted" id="hint">Trykk på stempelet for å godkjenne tegningen</p>
+  </div>
+  <button id="skip" class="mono muted">Hopp over →</button>
+</div>
+
+<!-- ================= HUD ================= -->
+<header>
+  <a href="#hjem" class="logo">SF.</a>
+  <nav class="mono">
+    <a href="#om">Om</a><a href="#faser">Faser</a><a href="#prosjekter">Prosjekter</a><a href="#godkjenninger">Sertifikater</a><a href="#kontakt">Kontakt</a>
+    <button id="theme" class="mono" aria-label="Bytt til blåkopi-modus">Blåkopi</button>
+  </nav>
+</header>
+<div class="titleblock" aria-hidden="true"><div id="sheetlabel">ARK 01/07 · FORSIDE</div><div id="coords">X 000 · Y 000</div></div>
+<div class="cross" id="cx"></div><div class="cross" id="cy"></div>
+
+<main id="main">
+  <!-- ARK 01 -->
+  <section id="hjem" data-sheet="ARK 01/07 · FORSIDE">
+    <div class="bgsf" aria-hidden="true">SF</div>
+    <p class="mono muted hero-in" style="margin-bottom:56px">— Utvikler · Entreprenør · Systemer —</p>
+    <div class="namewrap">
+      <div class="dim" aria-hidden="true"><i></i><i></i><span class="mono" id="dimlabel">000 MM</span></div>
+      <h1><span class="l1" data-split>Shahi</span><span class="l2" data-split>Ftah.</span></h1>
+    </div>
+    <p class="mono muted hero-in" style="margin-top:28px">Informatikk & innovasjonsledelse — UiO · Fullstack & business · Oslo</p>
+    <p class="tagline hero-in">Bygger systemer som faktisk fungerer, og forstår forretningen bak dem.</p>
+    <div class="stats hero-in">
+      <div><strong data-count="3" data-suffix="+">0</strong><span class="mono muted">År som gruppelærer</span></div>
+      <div><strong data-count="10">0</strong><span class="mono muted">Sertifiseringer</span></div>
+      <div><strong data-count="8">0</strong><span class="mono muted">Programmeringsspråk</span></div>
+    </div>
+    <div class="btns hero-in">
+      <a class="btn pri" href="mailto:shahi55@outlook.com">Ta kontakt ↗</a>
+      <a class="btn" href="https://github.com/ShahiFtah">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/shahiftah/">LinkedIn</a>
+      <a class="btn" href="https://www.credly.com/users/shahi-ftah">Credly ↗</a>
+    </div>
+  </section>
+
+  <!-- ARK 02 -->
+  <section id="om" class="om" data-sheet="ARK 02/07 · OM MEG">
+    <div class="sheethead"><span class="mono rust">ARK 02</span><span class="ln"></span><span class="mono muted">Om meg</span></div>
+    <p data-words>Jeg bygger systemer som løser ekte problemer, fra fingerdeteksjon med Computer Vision til event-drevne mikrotjenester.</p>
+    <p data-reveal>Ved siden av studiene har jeg i tre år veiledet medstudenter som gruppelærer i IN1020, og jeg har erfaring fra flere bransjer. Se full oversikt på <a href="https://www.linkedin.com/in/shahiftah/">LinkedIn ↗</a>.</p>
+  </section>
+
+  <!-- ARK 03 -->
+  <section id="faser" data-sheet="ARK 03/07 · BYGGEFASER">
+    <div class="sheethead"><span class="mono rust">ARK 03</span><span class="ln"></span><span class="mono muted">Byggefaser</span></div>
+    <h2 data-reveal>Bygget i faser.</h2>
+    <div class="phases">
+      <div class="rail"><div class="rail-fill"></div></div>
+      <div class="phase" data-reveal><span class="mono muted">Fase 01 · Fundament · 2019–2022</span><h3>Mysen VGS — Realfag</h3><p>Grunnmuren: matte, fysikk og en tidlig interesse for hvordan ting henger sammen.</p></div>
+      <div class="phase" data-reveal><span class="mono muted">Fase 02 · Konstruksjon · 2022–2026</span><h3>Bachelor Informatikk (PROSA), UiO</h3><p>Algoritmer og datastrukturer, databaser, operativsystemer, IT-sikkerhet, systemutvikling, digital teknologi og samfunn, mikroøkonomi.</p></div>
+      <div class="phase" data-reveal><span class="mono muted">Fase 03 · Bærende vegg · 3 år</span><h3>Gruppelærer, IN1020</h3><p>Veiledet medstudenter. Å forklare noe enkelt er den beste testen på om du forstår det selv.</p></div>
+      <div class="phase live" data-reveal><span class="mono rust">Fase 04 · Påbygg · Høst 2026 → <span class="status">Under bygging</span></span><h3>Master: Entreprenørskap og innovasjonsledelse, UiO</h3><p>Der teknologien møter forretningen.</p></div>
+    </div>
+  </section>
+
+  <!-- ARK 04 -->
+  <section id="materialer" data-sheet="ARK 04/07 · MATERIALLISTE">
+    <div class="sheethead"><span class="mono rust">ARK 04</span><span class="ln"></span><span class="mono muted">Materialliste</span></div>
+    <h2 data-reveal>Materialliste.</h2>
+    <table class="bom" data-reveal>
+      <thead><tr><th>POS</th><th>KATEGORI</th><th>KOMPONENTER</th></tr></thead>
+      <tbody>
+        <tr><td>01</td><td>Programmering</td><td class="chips" data-stagger><span>Python</span><span>Java</span><span>C</span><span>Kotlin</span><span>TypeScript</span><span>SQL</span><span>Scheme</span><span>HTML/CSS</span></td></tr>
+        <tr><td>02</td><td>Verktøy & plattform</td><td class="chips" data-stagger><span>Git / GitHub</span><span>Linux / Unix</span><span>Android Studio</span><span>SSH</span><span>Figma</span><span>API / Bruno</span><span>Databaser</span><span>M365</span></td></tr>
+        <tr><td>03</td><td>Metodikk</td><td class="chips" data-stagger><span>Agile / Scrum</span><span>Kanban</span><span>DevOps</span><span>CI/CD</span><span>TDD</span><span>AI-fundamentals</span><span>IT-sikkerhet & personvern</span><span>Kunderådgivning</span></td></tr>
+        <tr><td>04</td><td>Språk</td><td data-stagger style="display:grid;gap:8px">
+          <div><span class="mono">NO</span> Norsk <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span> <span class="mono muted">Morsmål</span></div>
+          <div><span class="mono">EN</span> Engelsk <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span> <span class="mono muted">Flytende</span></div>
+          <div><span class="mono">KU</span> Kurdisk <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span> <span class="mono muted">Flytende</span></div>
+          <div><span class="mono">AR</span> Arabisk <span class="lvl"><i class="on"></i><i class="on"></i><i></i><i></i></span> <span class="mono muted">Middels</span></div>
+          <div><span class="mono">ES</span> Spansk <span class="lvl"><i class="on"></i><i></i><i></i><i></i></span> <span class="mono muted">Grunnleggende</span></div>
+        </td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ARK 05 -->
+  <section id="prosjekter" data-sheet="ARK 05/07 · PROSJEKTER">
+    <div class="sheethead"><span class="mono rust">ARK 05</span><span class="ln"></span><span class="mono muted">Prosjekter · 7 tegninger</span></div>
+    <h2 data-reveal>Tegninger.</h2>
+    <div class="track" id="track">
+      <a class="card" href="https://github.com/ShahiFtah/LLM---CHATBOT">
+        <div class="art"><svg viewBox="0 0 200 140"><rect class="draw" x="20" y="20" width="110" height="44" rx="10"/><rect class="draw acc" x="70" y="78" width="110" height="44" rx="10"/><line class="draw" x1="36" y1="38" x2="110" y2="38"/><line class="draw" x1="36" y1="48" x2="90" y2="48"/><line class="draw acc" x1="86" y1="96" x2="160" y2="96"/><line class="draw acc" x1="86" y1="106" x2="140" y2="106"/></svg></div>
+        <div class="body"><span class="mono muted">Ark 05.1</span><h3>LLM Chatbot</h3><p>Personlig AI-chatbot med OpenRouter sitt gratis API. Kjører i nettleseren uten backend-kostnad.</p></div>
+        <div class="foot mono muted"><span>HTML · JS · AI/LLM</span><span>↗</span></div></a>
+      <a class="card" href="https://github.com/ShahiFtah">
+        <div class="art"><svg viewBox="0 0 200 140"><circle class="draw" cx="100" cy="70" r="50"/><line class="draw" x1="40" y1="70" x2="160" y2="70"/><line class="draw" x1="100" y1="10" x2="100" y2="130"/><circle class="draw acc" cx="72" cy="52" r="5"/><circle class="draw acc" cx="90" cy="40" r="5"/><circle class="draw acc" cx="110" cy="38" r="5"/><circle class="draw acc" cx="128" cy="48" r="5"/><circle class="draw acc" cx="60" cy="80" r="5"/></svg></div>
+        <div class="body"><span class="mono muted">Ark 05.2</span><h3>Fingerdeteksjon</h3><p>Gjenkjenner fingre med Computer Vision.</p></div>
+        <div class="foot mono muted"><span>Computer Vision</span><span>↗</span></div></a>
+      <a class="card" href="https://github.com/ShahiFtah">
+        <div class="art"><svg viewBox="0 0 200 140"><circle class="draw acc" cx="150" cy="36" r="16"/><line class="draw acc" x1="150" y1="8" x2="150" y2="14"/><line class="draw acc" x1="178" y1="36" x2="172" y2="36"/><line class="draw acc" x1="122" y1="36" x2="128" y2="36"/><path class="draw" d="M30 120 L60 60 L140 60 L110 120 Z"/><line class="draw" x1="45" y1="90" x2="125" y2="90"/><line class="draw" x1="85" y1="60" x2="70" y2="120"/></svg></div>
+        <div class="body"><span class="mono muted">Ark 05.3</span><h3>Sunify — Solcelleapp</h3><p>App for solcelleanlegg.</p></div>
+        <div class="foot mono muted"><span>App</span><span>↗</span></div></a>
+      <a class="card" href="https://github.com/ShahiFtah">
+        <div class="art"><svg viewBox="0 0 200 140"><rect class="draw acc" x="80" y="52" width="40" height="36"/><circle class="draw" cx="30" cy="30" r="10"/><circle class="draw" cx="170" cy="30" r="10"/><circle class="draw" cx="30" cy="110" r="10"/><circle class="draw" cx="170" cy="110" r="10"/><path class="draw" d="M40 34 L80 60 M160 34 L120 60 M40 106 L80 80 M160 106 L120 80"/></svg></div>
+        <div class="body"><span class="mono muted">Ark 05.4</span><h3>UDP Directory Service</h3><p>Katalogtjeneste over UDP.</p></div>
+        <div class="foot mono muted"><span>Nettverk</span><span>↗</span></div></a>
+      <a class="card" href="https://github.com/ShahiFtah">
+        <div class="art"><svg viewBox="0 0 200 140"><path class="draw" d="M20 20 H180 V120 H20 Z M60 20 V80 M100 60 V120 M140 20 V90 M20 60 H60"/><path class="draw acc" d="M40 120 V40 H80 V100 H120 V40 H160 V110"/></svg></div>
+        <div class="body"><span class="mono muted">Ark 05.5</span><h3>Labyrint-løser</h3><p>Finner veien gjennom en labyrint algoritmisk.</p></div>
+        <div class="foot mono muted"><span>Algoritmer</span><span>↗</span></div></a>
+      <a class="card" href="https://github.com/ShahiFtah">
+        <div class="art"><svg viewBox="0 0 200 140"><rect class="draw" x="14" y="54" width="44" height="32"/><rect class="draw acc" x="78" y="54" width="44" height="32"/><rect class="draw" x="142" y="18" width="44" height="32"/><rect class="draw" x="142" y="90" width="44" height="32"/><path class="draw" d="M58 70 H78 M122 66 L142 36 M122 74 L142 104"/></svg></div>
+        <div class="body"><span class="mono muted">Ark 05.6</span><h3>Event-Driven Microservices</h3><p>Mikrotjenester som snakker sammen gjennom hendelser.</p></div>
+        <div class="foot mono muted"><span>Arkitektur</span><span>↗</span></div></a>
+      <a class="card" href="https://github.com/ShahiFtah">
+        <div class="art"><svg viewBox="0 0 200 140"><rect class="draw" x="40" y="10" width="28" height="44"/><rect class="draw" x="40" y="88" width="28" height="42"/><rect class="draw" x="140" y="10" width="28" height="64"/><rect class="draw" x="140" y="106" width="28" height="24"/><circle class="draw acc" cx="100" cy="74" r="10"/><path class="draw acc" d="M20 100 Q60 60 90 74" stroke-dasharray="3 4"/></svg></div>
+        <div class="body"><span class="mono muted">Ark 05.7</span><h3>Flappy Bird</h3><p>Egen versjon av klassikeren.</p></div>
+        <div class="foot mono muted"><span>Spill</span><span>↗</span></div></a>
+    </div>
+  </section>
+
+  <!-- ARK 06 -->
+  <section id="godkjenninger" data-sheet="ARK 06/07 · GODKJENNINGER">
+    <div class="sheethead"><span class="mono rust">ARK 06</span><span class="ln"></span><span class="mono muted">10 godkjenninger loggført</span></div>
+    <h2 data-reveal>Godkjent av.</h2>
+    <div class="certs" id="certs">
+      <div class="cert"><span class="mono muted">Cert·01</span><h4>Elements of AI</h4><span class="muted">University of Helsinki · NTNU</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·02</span><h4>Blå sone</h4><span class="muted">Telenor</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·03</span><h4>Introduction to DHIS2</h4><span class="muted">DHIS2 · UiO</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·04</span><h4>Agile Explorer</h4><span class="muted">IBM SkillsBuild</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·05</span><h4>Artificial Intelligence Fundamentals</h4><span class="muted">IBM SkillsBuild</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·06</span><h4>Working in a Digital World</h4><span class="muted">IBM SkillsBuild</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·07</span><h4>Fundamentals of Digital Marketing</h4><span class="muted">Google Digital Garage</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·08</span><h4>Google Analytics for Beginners</h4><span class="muted">Google Analytics Academy</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·09</span><h4>Getting Started With Google Analytics 360</h4><span class="muted">Google Analytics Academy</span><span class="ok">GODKJENT</span></div>
+      <div class="cert"><span class="mono muted">Cert·10</span><h4>Grunnprinsipper for IKT-sikkerhet</h4><span class="muted">NSM</span><span class="ok">GODKJENT</span></div>
+    </div>
+  </section>
+
+  <!-- ARK 07 -->
+  <section id="kontakt" data-sheet="ARK 07/07 · SIGNATUR">
+    <div class="sheethead"><span class="mono rust">ARK 07</span><span class="ln"></span><span class="mono muted">Signatur</span></div>
+    <h2 data-reveal>La oss bygge<br><span class="rust">noe sammen.</span></h2>
+    <svg class="sig" viewBox="0 0 460 90" aria-hidden="true"><path id="sigpath" d="M10 62 C30 20 52 18 48 44 C44 70 18 74 26 58 C40 34 70 40 76 60 C80 72 92 40 104 38 C114 36 108 66 118 64 C130 62 134 30 146 32 C158 34 150 70 166 62 C182 54 186 22 204 26 C222 30 196 70 216 66 C240 60 250 40 270 44 C300 50 320 40 360 46 C390 50 420 44 450 40"/></svg>
+    <div class="sigline mono muted">Signert · S. Ftah · Oslo 2026</div>
+    <div class="btns" data-reveal>
+      <a class="btn pri" href="mailto:shahi55@outlook.com">Send e-post ↗</a>
+      <a class="btn" href="https://www.linkedin.com/in/shahiftah/">LinkedIn</a>
+      <a class="btn" href="https://www.credly.com/users/shahi-ftah">Credly</a>
+    </div>
+  </section>
+</main>
+<footer class="mono muted">Slutt på tegningssett · SF-2026-001 · <a href="#hjem" style="text-decoration:none">Tilbake til ark 01 ↑</a></footer>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script>
+(() => {
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const intro = $('#intro');
+
+// Tema (blåkopi)
+const themeBtn = $('#theme');
+themeBtn.onclick = () => {
+  const dark = document.documentElement.dataset.theme === 'dark';
+  document.documentElement.dataset.theme = dark ? '' : 'dark';
+  themeBtn.textContent = dark ? 'Blåkopi' : 'Papir';
+};
+
+// Uten GSAP eller med redusert bevegelse: vis alt rett frem
+if (!window.gsap || reduce) { intro.remove(); document.body.classList.remove('locked'); return; }
+gsap.registerPlugin(ScrollTrigger);
+
+// ---------- Myk scroll ----------
+let lenis = null;
+if (window.Lenis) {
+  lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
+  lenis.stop();
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(t => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault(); lenis.scrollTo(a.getAttribute('href'), { offset: -40, duration: 1.6 });
+  }));
+}
+
+// ---------- Hjelpere ----------
+const prepDraw = el => { const L = el.getTotalLength ? el.getTotalLength() : 600; gsap.set(el, { strokeDasharray: L, strokeDashoffset: L }); return el; };
+$$('[data-split]').forEach(el => {
+  el.innerHTML = [...el.textContent].map(c => `<span class="ch-w"><span class="ch">${c}</span></span>`).join('');
+});
+$$('[data-words]').forEach(el => {
+  el.innerHTML = el.textContent.split(' ').map(w => `<span class="ch-w"><span class="w">${w}</span></span>`).join(' ');
+});
+
+// Skjul helten til introen er ferdig
+gsap.set('.ch', { yPercent: 110 });
+gsap.set('.hero-in', { autoAlpha: 0, y: 24 });
+gsap.set('.dim', { scaleX: 0 });
+const introDraw = $$('#intro .draw > *').map(prepDraw);
+
+// ---------- INTRO ----------
+const tl = gsap.timeline({ delay: 0.3 });
+tl.to('#sheet', { clipPath: 'inset(0 0 0% 0)', duration: 1.4, ease: 'power3.inOut' })
+  .to('#roll', { y: () => $('#sheet').offsetHeight, duration: 1.4, ease: 'power3.inOut' }, 0)
+  .to('#roll', { autoAlpha: 0, y: '+=30', duration: 0.4 })
+  .to(introDraw, { strokeDashoffset: 0, duration: 1.4, stagger: 0.05, ease: 'power2.out' }, 0.8)
+  .fromTo('#stamp', { y: -40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.8, ease: 'back.out(1.6)' }, '-=0.6')
+  .to('#hint', { autoAlpha: 1, duration: 0.6 }, '<');
+// stempelet "puster" mens det venter
+const idle = gsap.to('#stamp', { y: -8, duration: 1.1, repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true });
+let ready = false;
+tl.call(() => { ready = true; idle.play(); });
+
+let entered = false;
+function enter(skipAnim) {
+  if (entered) return; entered = true; idle.kill();
+  const go = gsap.timeline({ onComplete: () => { intro.remove(); document.body.classList.remove('locked'); lenis && lenis.start(); heroIn(); } });
+  if (!skipAnim) {
+    const s = $('#stamp').getBoundingClientRect(), t = $('#approve').getBoundingClientRect();
+    const dx = (t.left + t.width / 2) - (s.left + s.width / 2);
+    const dy = (t.top + t.height / 2) - (s.bottom - 15);
+    go.to('#hint', { autoAlpha: 0, duration: 0.2 })
+      .to('#stamp', { x: dx, y: dy - 40, rotation: -8, duration: 0.6, ease: 'power3.inOut' })
+      .to('#stamp', { y: dy, scale: 0.94, duration: 0.12, ease: 'power4.in' })
+      .fromTo('#imprint', { autoAlpha: 0, scale: 1.5 }, { autoAlpha: 1, scale: 1, duration: 0.18, ease: 'power4.out' })
+      .to('.intro-wrap', { x: 3, duration: 0.05, yoyo: true, repeat: 3 }, '<')
+      .to('#stamp', { y: dy - 140, autoAlpha: 0, rotation: 6, duration: 0.6, ease: 'power3.out' }, '+=0.15')
+      .to('.intro-wrap', { scale: 6, autoAlpha: 0, duration: 1.1, ease: 'expo.in' }, '+=0.25');
+  }
+  go.to(intro, { autoAlpha: 0, duration: 0.5 }, skipAnim ? 0 : '-=0.35');
+}
+$('#stamp').onclick = () => { if (ready) enter(false); };
+$('#skip').onclick = () => enter(true);
+addEventListener('keydown', e => { if (e.key === 'Enter' && !entered && document.activeElement === document.body) enter(false); });
+
+// ---------- HERO ----------
+function heroIn() {
+  const h = gsap.timeline({ defaults: { ease: 'expo.out' } });
+  h.to('.ch', { yPercent: 0, duration: 1.3, stagger: 0.04 })
+   .to('.dim', { scaleX: 1, duration: 1.2, ease: 'power3.inOut' }, 0.3)
+   .to('.hero-in', { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08 }, 0.5);
+  // mål navnebredden "live"
+  const w = $('.namewrap').offsetWidth, o = { v: 0 };
+  gsap.to(o, { v: w, duration: 1.4, delay: 0.3, ease: 'power3.out', onUpdate: () => $('#dimlabel').textContent = String(Math.round(o.v)).padStart(3, '0') + ' MM' });
+  $$('[data-count]').forEach(el => {
+    const c = { v: 0 }, n = +el.dataset.count, suf = el.dataset.suffix || '';
+    gsap.to(c, { v: n, duration: 1.6, delay: 0.8, ease: 'power2.out', onUpdate: () => el.textContent = Math.round(c.v) + suf });
+  });
+}
+gsap.to('.bgsf', { yPercent: -35, ease: 'none', scrollTrigger: { trigger: '#hjem', start: 'top top', end: 'bottom top', scrub: true } });
+
+// ---------- SCROLL-ANIMASJONER ----------
+$$('.sheethead .ln').forEach(l => gsap.from(l, { scaleX: 0, duration: 1.4, ease: 'power3.inOut', scrollTrigger: { trigger: l, start: 'top 88%' } }));
+$$('[data-reveal]').forEach(el => gsap.from(el, { y: 40, autoAlpha: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 86%' } }));
+$$('[data-words]').forEach(el => gsap.from(el.querySelectorAll('.w'), { yPercent: 110, duration: 1, stagger: 0.025, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 80%' } }));
+$$('[data-stagger]').forEach(g => gsap.from(g.children, { y: 16, autoAlpha: 0, duration: 0.7, stagger: 0.05, ease: 'power3.out', scrollTrigger: { trigger: g, start: 'top 88%' } }));
+
+// Byggefaser: linja fylles mens du scroller
+gsap.to('.rail-fill', { scaleY: 1, ease: 'none', scrollTrigger: { trigger: '.phases', start: 'top 70%', end: 'bottom 60%', scrub: true } });
+
+// Sertifikater: stemples inn ett og ett
+gsap.from('.cert', { y: 30, autoAlpha: 0, duration: 0.8, stagger: 0.06, ease: 'power3.out', scrollTrigger: { trigger: '#certs', start: 'top 80%' } });
+gsap.from('.cert .ok', { scale: 2.2, autoAlpha: 0, duration: 0.35, stagger: 0.09, delay: 0.4, ease: 'power4.in', scrollTrigger: { trigger: '#certs', start: 'top 80%' } });
+
+// Signatur tegnes
+prepDraw($('#sigpath'));
+gsap.to('#sigpath', { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut', scrollTrigger: { trigger: '.sig', start: 'top 85%' } });
+
+// Prosjekter: horisontal scroll på desktop, vanlig på mobil
+const cardDraws = $$('.card .draw').map(prepDraw);
+const mm = gsap.matchMedia();
+mm.add('(min-width: 900px)', () => {
+  const track = $('#track');
+  const dist = () => track.scrollWidth - innerWidth;
+  const tween = gsap.to(track, { x: () => -dist(), ease: 'none',
+    scrollTrigger: { trigger: '#prosjekter', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
+  $$('.card').forEach(card => gsap.to(card.querySelectorAll('.draw'), { strokeDashoffset: 0, duration: 1.4, stagger: 0.06, ease: 'power2.out',
+    scrollTrigger: { trigger: card, containerAnimation: tween, start: 'left 85%' } }));
+});
+mm.add('(max-width: 899px)', () => {
+  $('#track').style.flexDirection = 'column'; $('#track').style.width = 'auto';
+  $$('.card').forEach(card => gsap.to(card.querySelectorAll('.draw'), { strokeDashoffset: 0, duration: 1.4, stagger: 0.06, ease: 'power2.out',
+    scrollTrigger: { trigger: card, start: 'top 80%' } }));
+  return () => { $('#track').style.flexDirection = ''; $('#track').style.width = ''; };
+});
+
+// ---------- HUD: arknummer, koordinater, trådkors ----------
+$$('section[data-sheet]').forEach(s => ScrollTrigger.create({ trigger: s, start: 'top 50%', end: 'bottom 50%',
+  onToggle: self => self.isActive && ($('#sheetlabel').textContent = s.dataset.sheet) }));
+const cx = $('#cx'), cy = $('#cy'), coords = $('#coords');
+const qx = gsap.quickTo(cx, 'x', { duration: 0.35, ease: 'power3' }), qy = gsap.quickTo(cy, 'y', { duration: 0.35, ease: 'power3' });
+let mx = 0, my = 0;
+const upd = () => coords.textContent = `X ${String(Math.round(mx)).padStart(4, '0')} · Y ${String(Math.round(my + scrollY)).padStart(4, '0')}`;
+addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; qx(mx); qy(my); upd(); });
+addEventListener('scroll', upd, { passive: true });
+})();
+</script>
+</body>
+</html>
